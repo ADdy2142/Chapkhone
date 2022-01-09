@@ -1,0 +1,151 @@
+/* Start Site Notification */
+#site-notification .banner {
+    height: 80px;
+    border-radius: 5px;
+    box-shadow: var(--shadow);
+    background-size: cover;
+    background-position: 50% 50%;
+}
+
+@media screen and (max-width: 992px) {
+    #site-notification .banner {
+        height: 110px;
+    }
+}
+
+@media screen and (max-width: 760px) {
+    #site-notification .banner {
+        height: 120px;
+    }
+}
+
+/* End Site Notification */
+
+/* Start Main Slide Show */
+#main-slide-show .slides-container {
+    box-shadow: var(--shadow);
+}
+
+#main-slide-show .custom-card {
+    border-radius: 5px;
+    height: 400px;
+    background-size: cover;
+    background-position: 50% 50%;
+    overflow: hidden;
+}
+
+#main-slide-show .swiper-pagination-bullet {
+    width: 16px;
+    height: 16px;
+}
+
+#main-slide-show .swiper-pagination-bullet-active {
+    background-color: var(--primary-color);
+}
+
+@media screen and (max-width: 992px) {
+    #main-slide-show .custom-card {
+        height: 300px;
+    }
+}
+
+/* End Main Slide Show */
+
+/* Start Customer Comment Card */
+.customer-cards-container {
+    display: flex;
+    justify-content: space-between;
+    align-items: stretch;
+    flex-wrap: wrap;
+}
+
+.customer-comment-card {
+    background-color: var(--light-color);
+    border-radius: 5px;
+    padding: 15px 10px;
+    width: 23%;
+    overflow: hidden;
+    text-align: center;
+}
+
+.customer-comment-card .customer-image {
+    margin: 0 auto;
+    width: 60px;
+    height: 60px;
+    border-radius: 50%;
+    background-size: cover;
+    background-position: 50% 50%;
+    box-shadow: var(--shadow);
+    margin-bottom: 10px;
+}
+
+.customer-comment-card .customer-name {
+    display: block;
+    font-weight: bold;
+    margin-bottom: 5px;
+}
+
+.customer-comment-card .customer-comment-wrap svg {
+    display: inline-block;
+    width: 14px;
+    height: 14px;
+    vertical-align: middle;
+    margin: 0 5px;
+}
+
+.customer-comment-card .customer-comment-wrap svg path {
+    fill: var(--primary-text-color);
+}
+
+@media screen and (max-width: 992px) {
+    .customer-comment-card {
+        width: 47%;
+        margin-bottom: 20px;
+    }
+}
+
+@media screen and (max-width: 428px) {
+    .customer-cards-container {
+        align-items: center;
+    }
+
+    .customer-comment-card {
+        width: 100%;
+        margin-bottom: 20px;
+    }
+}
+
+/* End Customer Comment Card */
+
+/* Start Our Customers */
+#our-customers .customer-image {
+    width: 130px;
+    height: 130px;
+}
+
+#our-customers .customer-image img {
+    filter: grayscale(1.2);
+    max-width: 100%;
+    max-height: 100%;
+    transition: var(--transition);
+}
+
+#our-customers .customer-image:hover img {
+    filter: grayscale(0);
+}
+
+@media screen and (max-width: 992px) {
+    #our-customers .customer-image {
+        width: 90px;
+        height: 90px;
+    }
+}
+
+@media screen and (max-width: 768px) {
+    #our-customers .customer-image {
+        width: 100px;
+        height: 100px;
+    }
+}
+
+/* End Our Customers */

@@ -1,0 +1,50 @@
+/* Start Order Details Notify Card */
+.order-details-notify-card {
+    padding: 10px;
+    border-radius: 5px;
+    border: 1px dashed var(--primary-color);
+    overflow: hidden;
+    display: flex;
+    justify-content: space-between;
+    gap: 10px;
+    background-color: var(--white-color);
+    min-height: 80px;
+    margin-bottom: 20px;
+}
+
+.order-details-notify-card.re-pay {
+    border-color: var(--alert-color);
+}
+
+.order-details-notify-card .order-details-notify-card-header {
+    font-size: 14px;
+    font-weight: bold;
+    display: block;
+    margin-bottom: 5px;
+}
+
+.order-details-notify-card .button-wrap {
+    display: flex;
+    align-items: flex-end;
+}
+
+.order-details-notify-card.re-pay .button-wrap .button {
+    background-color: var(--alert-color);
+    color: var(--white-color) !important;
+}
+
+.order-details-notify-card.re-pay .button-wrap .button:hover {
+    background-color: var(--button-on-hover-alert-color);
+}
+
+@media screen and (max-width: 428px) {
+    .order-details-notify-card {
+        flex-wrap: wrap;
+    }
+
+    .order-details-notify-card .button-wrap {
+        flex-grow: 1;
+    }
+}
+
+/* End Order Details Notify Card */

@@ -1,0 +1,211 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>چاپخانه بخشی - @ViewBag.Title</title>
+
+    <link rel="stylesheet" href="~/css/bootstrap.rtl.min.css">
+    <link rel="stylesheet" href="~/css/style.css">
+    @await RenderSectionAsync("Styles", required: false)
+</head>
+
+<body>
+    <!-- Start Navbar -->
+    <nav class="site-navbar">
+        <div class="navbar-content">
+            <div class="navbar-buttons">
+                <div class="navbar-home">
+                    <a asp-controller="Home" asp-action="Index" class="site-navbar-brand">
+                        <img src="/images/logo.png" alt="چاپخانه بخشی" class="site-navbar-brand-img">
+                    </a>
+                </div>
+                <div class="navbar-toggle-button-wrap">
+                    <a href="#" class="navbar-toggle-button">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="512" height="512" viewBox="-32 0 512 512"
+                             xmlns:v="https://vecta.io/nano">
+                            <path d="M16 132h416c8.837 0 16-7.163 16-16V76c0-8.837-7.163-16-16-16H16C7.163 60 0 67.163 0 76v40c0 8.837 7.163 16 16 16zm0 160h416c8.837 0 16-7.163 16-16v-40c0-8.837-7.163-16-16-16H16c-8.837 0-16 7.163-16 16v40c0 8.837 7.163 16 16 16zm0 160h416c8.837 0 16-7.163 16-16v-40c0-8.837-7.163-16-16-16H16c-8.837 0-16 7.163-16 16v40c0 8.837 7.163 16 16 16z" />
+                        </svg>
+                    </a>
+                </div>
+            </div>
+            <ul class="site-navbar-items">
+                <li class="site-navbar-item"><a asp-controller="Home" asp-action="Index" class="site-navbar-link">صفحه اصلی</a></li>
+                <li class="site-navbar-item"><a href="#" class="site-navbar-link">سفارش اختصاصی</a></li>
+                <li class="site-navbar-item my-dropdown">
+                    <span class="site-navbar-link">محصولات</span>
+                    <ul class="my-dropdown-menu my-dropdown-menu-right">
+                        <li class="my-dropdown-item"><a href="#" class="my-dropdown-link">بنر</a></li>
+                        <li class="my-dropdown-item"><a href="#" class="my-dropdown-link">کارت ویزیت</a></li>
+                        <li class="my-dropdown-item"><a href="#" class="my-dropdown-link">نایلون</a></li>
+                    </ul>
+                </li>
+                <li class="site-navbar-item"><a href="#" class="site-navbar-link">درباره ما</a></li>
+            </ul>
+            @if (User.Identity.IsAuthenticated)
+            {
+                <ul class="auth-items">
+                    <li class="auth-item"><a href="#" class="auth-link">ورود</a></li>
+                    <li class="auth-item"><span href="#" class="auth-text">یا</span></li>
+                    <li class="auth-item"><a href="#" class="auth-link">ثبت نام</a></li>
+                </ul>
+            }
+            else
+            {
+                <ul class="user-profile">
+                    <li class="user-profile-item">
+                        <a href="#" class="shopping-cart">
+                            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 486.569 486.569"
+                             xmlns:v="https://vecta.io/nano">
+                                <path d="M146.069 320.369h268.1c30.4 0 55.2-24.8 55.2-55.2v-112.8-.4-.8c0-.2 0-.4-.1-.6 0-.2-.1-.5-.1-.7s-.1-.4-.1-.6c-.1-.2-.1-.4-.2-.7-.1-.2-.1-.4-.2-.6s-.1-.4-.2-.6-.2-.4-.3-.7c-.1-.2-.2-.4-.3-.5l-.3-.6c-.1-.2-.2-.3-.3-.5s-.3-.4-.4-.6-.2-.3-.4-.5c-.1-.2-.3-.3-.4-.5s-.3-.3-.4-.5-.3-.3-.4-.4l-.5-.5c-.2-.1-.3-.3-.5-.4s-.4-.3-.6-.4-.3-.2-.5-.3-.4-.2-.6-.4l-.6-.3-.6-.3-.6-.3c-.2-.1-.4-.1-.6-.2s-.5-.2-.7-.2-.4-.1-.5-.1c-.3-.1-.5-.1-.8-.1-.1 0-.2-.1-.4-.1l-339.8-46.9v-47.4c0-.5 0-1-.1-1.4 0-.1 0-.2-.1-.4 0-.3-.1-.6-.1-.9-.1-.3-.1-.5-.2-.8 0-.2-.1-.3-.1-.5l-.3-.9c0-.1-.1-.3-.1-.4-.1-.3-.2-.5-.4-.8-.1-.1-.1-.3-.2-.4-.1-.2-.2-.4-.4-.6-.1-.2-.2-.3-.3-.5s-.2-.3-.3-.5-.3-.4-.4-.6l-.3-.3-.6-.6-.3-.3c-.2-.2-.4-.4-.7-.6-.1-.1-.3-.2-.4-.3-.2-.2-.4-.3-.6-.5-.3-.2-.6-.4-.8-.5-.1-.1-.2-.1-.3-.2-.4-.2-.9-.4-1.3-.6l-73.7-31c-6.9-2.9-14.8.3-17.7 7.2s.3 14.8 7.2 17.7l65.4 27.6v61.2 9.7 74.4 66.5 84c0 28 21 51.2 48.1 54.7-4.9 8.2-7.8 17.8-7.8 28 0 30.1 24.5 54.5 54.5 54.5s54.5-24.5 54.5-54.5c0-10-2.7-19.5-7.5-27.5h121.4c-4.8 8.1-7.5 17.5-7.5 27.5 0 30.1 24.5 54.5 54.5 54.5s54.5-24.5 54.5-54.5-24.5-54.5-54.5-54.5h-255c-15.6 0-28.2-12.7-28.2-28.2v-36.6c8.2 4.8 17.9 7.6 28.2 7.6zm67.2 111.6c0 15.2-12.4 27.5-27.5 27.5s-27.5-12.4-27.5-27.5 12.4-27.5 27.5-27.5 27.5 12.3 27.5 27.5zm215.4 0c0 15.2-12.4 27.5-27.5 27.5s-27.5-12.4-27.5-27.5 12.4-27.5 27.5-27.5 27.5 12.3 27.5 27.5zm-14.5-138.6h-268.1c-15.6 0-28.2-12.7-28.2-28.2v-66.5-74.4-5l324.5 44.7v101.1c0 15.7-12.7 28.3-28.2 28.3z" />
+                            </svg>
+                        </a>
+                    </li>
+                    <li class="user-profile-item">
+                        <a href="#" class="user-name">
+                            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 456.368 456.368"
+                             xmlns:v="https://vecta.io/nano">
+                                <path d="M324.194 220.526c-6.172 7.772-13.106 14.947-21.07 21.423 45.459 26.076 76.149 75.1 76.149 131.158 0 30.29-66.367 54.018-151.09 54.018s-151.09-23.728-151.09-54.018c0-56.058 30.69-105.082 76.149-131.158-7.963-6.476-14.897-13.65-21.07-21.423-50.624 31.969-84.322 88.41-84.322 152.581 0 19.439 10.644 46.53 61.355 65.201 31.632 11.647 73.886 18.06 118.979 18.06s87.347-6.413 118.979-18.06c50.71-18.671 61.355-45.762 61.355-65.201-.002-64.171-33.7-120.612-84.324-152.581zm-96.012 19.269c56.833 0 100.597-54.936 100.597-119.897C328.779 54.907 284.993 0 228.182 0c-56.833 0-100.597 54.936-100.597 119.897 0 64.991 43.787 119.898 100.597 119.898zm0-210.552c39.344 0 71.354 40.667 71.354 90.654s-32.01 90.654-71.354 90.654-71.354-40.667-71.354-90.654 32.01-90.654 71.354-90.654z" />
+                            </svg>
+                            عادل بخشی
+                        </a>
+                    </li>
+                </ul>
+            }
+        </div>
+    </nav>
+    <!-- End Navbar -->
+    <!-- Start Top Content -->
+    <section id="top-content">
+        <div class="container-fluid">
+            <div class="d-flex justify-content-between align-items-center flex-wrap">
+                <form action="#" id="search-form" class="direction-rtl">
+                    <input class="custom-input" type="text" placeholder="دنبال طراحی خاصی می گردید؟ جستجو کنید...">
+                    <input type="submit" value="جستجو" class="button">
+                </form>
+                @if (ViewBag.BreadCrumbs != null)
+                {
+                    <ul class="bread-crumb-items direction-rtl">
+                        @foreach (var breadCrumb in (ViewBag.BreadCrumbs as ICollection<BreadCrumb>))
+                        {
+                            <li class="bread-crumb-item"><a href="@breadCrumb.Url" class="bread-crumb-link">@breadCrumb.Title</a></li>
+                        }
+                    </ul>
+                }
+            </div>
+        </div>
+    </section>
+    <!-- End Top Content -->
+    @RenderBody()
+    <!-- Start Footer -->
+    <footer id="footer" class="direction-rtl">
+        <div class="footer-content">
+            <div class="row">
+                <div class="col-12 col-md-6 col-lg-3 footer-content-item-panel">
+                    <span class="footer-content-title">دسترسی سریع</span>
+                    <ul class="footer-content-items">
+                        <li class="footer-content-item"><a asp-controller="Home" asp-action="Index" class="footer-content-link">صفحه اصلی</a></li>
+                        <li class="footer-content-item"><a href="#" class="footer-content-link">سفارش اختصاص</a></li>
+                        <li class="footer-content-item"><a href="#" class="footer-content-link">محصولات</a></li>
+                        <li class="footer-content-item"><a href="#" class="footer-content-link">داشبورد</a></li>
+                        <li class="footer-content-item"><a href="#" class="footer-content-link">سبد خرید</a></li>
+                    </ul>
+                </div>
+                <div class="col-12 col-md-6 col-lg-3 footer-content-item-panel">
+                    <span class="footer-content-title">راهنما</span>
+                    <ul class="footer-content-items">
+                        <li class="footer-content-item"><a href="#" class="footer-content-link">روش های پرداخت</a></li>
+                        <li class="footer-content-item"><a href="#" class="footer-content-link">سوالات متداول</a></li>
+                    </ul>
+                </div>
+                <div class="col-12 col-md-6 col-lg-3 footer-content-item-panel">
+                    <span class="footer-content-title">نماد اعتماد الکترونیک</span>
+                    <a href="#">
+                        <img src="/images/electronic-trust-logo.png" alt="نماد اعتماد الکترونیک" class="img-fluid" style="filter: grayscale(2);">
+                    </a>
+                </div>
+                <div class="col-12 col-md-6 col-lg-3 footer-content-item-panel">
+                    <span class="footer-content-title">ارتباط با ما</span>
+                    <ul class="footer-content-items">
+                        <li class="footer-content-item">
+                            <div class="row">
+                                <div class="col-4">
+                                    <span class="footer-content-text">تلفن ثابت:</span>
+                                </div>
+                                <div class="col-8">
+                                    <span class="footer-content-text">05632620000</span>
+                                </div>
+                            </div>
+                        </li>
+                        <li class="footer-content-item">
+                            <div class="row">
+                                <div class="col-4">
+                                    <span class="footer-content-text">تلفن همراه:</span>
+                                </div>
+                                <div class="col-8">
+                                    <span class="footer-content-text">09153630000</span>
+                                </div>
+                            </div>
+                        </li>
+                        <li class="footer-content-item">
+                            <div class="row">
+                                <div class="col-4">
+                                    <span class="footer-content-text">پست الکترونیک:</span>
+                                </div>
+                                <div class="col-8">
+                                    <span class="footer-content-text">email@email.com</span>
+                                </div>
+                            </div>
+                        </li>
+                        <li class="footer-content-item">
+                            <div class="row">
+                                <div class="col-4">
+                                    <span class="footer-content-text">نشانی:</span>
+                                </div>
+                                <div class="col-8">
+                                    <span class="footer-content-text">نهبندان - جنب میدان دانشگاه</span>
+                                </div>
+                            </div>
+                        </li>
+                    </ul>
+                    <div class="social-media-card instagram-card direction-rtl position-relative">
+                        <div class="image-wrap">
+                            <img src="/images/instagram-icon.png" alt="انستاگرام" class="img-fluid">
+                        </div>
+                        <span class="card-text">به صفحه اینستاگرام ما بپیوندید.</span>
+                        <a href="#" class="card-link"></a>
+                    </div>
+                    <div class="social-media-card telegram-card direction-rtl position-relative">
+                        <div class="image-wrap">
+                            <img src="/images/telegram-icon.png" alt="تلگرام" class="img-fluid">
+                        </div>
+                        <span class="card-text">ما را در تلگرام دنبال کنید.</span>
+                        <a href="#" class="card-link"></a>
+                    </div>
+                    <div class="social-media-card whatsapp-card direction-rtl position-relative">
+                        <div class="image-wrap">
+                            <img src="/images/whatsapp-icon.png" alt="واتساپ" class="img-fluid">
+                        </div>
+                        <span class="card-text">برای اطلاعات بیشتر تماس بگیرید.</span>
+                        <a href="#" class="card-link"></a>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="site-info">
+            <p class="p-0 m-0">کلیه حقوق سایت متعلق به <span>چاپخانه بخشی</span> می باشد.</p>
+            <p class="p-0 m-0">طراحی و پیاده سازی سایت توسط <span>عادل بخشی</span> انجام شده است.</p>
+        </div>
+    </footer>
+    <!-- End Footer -->
+    <!-- Start Scripts -->
+    <script src="js/jquery-3.6.0.min.js"></script>
+    <script src="js/bootstrap.bundle.min.js"></script>
+    <script src="js/script.js"></script>
+    @await RenderSectionAsync("Scripts", required: false)
+    <!-- End Scripts -->
+</body>
+
+</html>

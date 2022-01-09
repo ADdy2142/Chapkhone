@@ -1,0 +1,111 @@
+/* Start Sort Content */
+.sort-content {
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+    margin-top: 30px;
+}
+
+.sort-content .sort-title {
+    display: inline-block;
+    margin-left: 10px;
+}
+
+.sort-content .sort-list-items {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    display: inline-block;
+}
+
+.sort-content .sort-list-items .sort-list-item {
+    display: inline-block;
+}
+
+.sort-content .sort-list-items .sort-list-item .button:not(.active) {
+    display: inline-block;
+    background-color: var(--primary-bg);
+}
+
+@media screen and (max-width: 428px) {
+    .sort-content {
+        flex-wrap: wrap;
+    }
+
+    .sort-content .sort-title {
+        display: inline-block;
+        width: 100%;
+        margin-bottom: 5px;
+    }
+
+    .sort-content .sort-list-items {
+        display: block;
+        width: 100%;
+    }
+}
+
+/* End Sort Content */
+
+/* Start Products Container */
+#products-container {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+}
+
+#products-container .product-card {
+    margin-bottom: 20px;
+}
+
+/* End Products Container */
+
+/* Start Pagination */
+.pagination-list {
+    list-style: none;
+    display: flex;
+    justify-content: start;
+    align-items: center;
+    gap: 5px;
+    margin: 0;
+    padding: 0;
+}
+
+.pagination-list .pagination-list-item {
+    display: inline-block;
+    width: 24px;
+    height: 24px;
+    position: relative;
+    border-radius: 5px;
+    overflow: hidden;
+}
+
+.pagination-list .pagination-list-item .pagination-list-link {
+    display: inline-block;
+    background-color: var(--light-color);
+    transition: var(--transition);
+    color: var(--primary-text-color);
+    position: absolute;
+    top: 0;
+    left: 0;
+    bottom: 0;
+    right: 0;
+}
+
+.pagination-list .pagination-list-item .pagination-list-link:hover {
+    background-color: var(--primary-color);
+}
+
+.pagination-list .pagination-list-item .pagination-list-link.active {
+    background-color: var(--primary-color);
+}
+
+.pagination-list .pagination-list-item .pagination-list-text {
+    display: inline-block;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    z-index: 100;
+}
+
+/* End Pagination */

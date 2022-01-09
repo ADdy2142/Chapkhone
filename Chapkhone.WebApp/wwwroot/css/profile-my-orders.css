@@ -1,0 +1,96 @@
+/* Start Custom Table */
+.my-flex-width-1 {
+    width: 10%;
+}
+
+.my-flex-width-2 {
+    width: 20%;
+}
+
+.my-flex-width-3 {
+    width: 30%;
+}
+
+.my-flex-width-4 {
+    width: 40%;
+}
+
+.my-flex-width-5 {
+    width: 50%;
+}
+
+.custom-table {
+    border-radius: 5px;
+    overflow: hidden;
+    display: block;
+    width: 100%;
+}
+
+.custom-table thead,
+.custom-table tbody {
+    display: block;
+    width: 100%;
+}
+
+.custom-table thead tr,
+.custom-table tbody tr {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 10px;
+}
+
+.custom-table thead tr {
+    padding: 15px;
+    background-color: var(--primary-color);
+}
+
+.custom-table tbody tr {
+    padding: 7px 15px;
+    background-color: var(--secondary-color);
+}
+
+.custom-table thead tr th {
+    display: block;
+    font-weight: bold !important;
+}
+
+.custom-table tbody tr td {
+    display: block;
+}
+
+.shopping-cart-show-details-link {
+    color: var(--primary-text-color);
+    transition: var(--transition);
+}
+
+.shopping-cart-show-details-link:hover {
+    color: var(--primary-color);
+}
+
+@media screen and (max-width: 428px) {
+    .custom-table thead tr,
+    .custom-table tbody tr {
+        gap: 5px;
+    }
+
+    .custom-table thead tr {
+        padding: 15px 5px;
+        background-color: var(--primary-color);
+    }
+
+    .custom-table tbody tr {
+        padding: 7px 5px;
+        background-color: var(--secondary-color);
+    }
+
+    .my-flex-sm-width-2 {
+        width: 20%;
+    }
+
+    .my-flex-sm-width-3 {
+        width: 30%;
+    }
+}
+
+/* End Custom Table */

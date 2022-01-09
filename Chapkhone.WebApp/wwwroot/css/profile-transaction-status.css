@@ -1,0 +1,44 @@
+/* Start Transaction Status */
+.transaction-status-wrap .transaction-header {
+    font-size: 14px;
+    font-weight: bold;
+    display: block;
+    margin-bottom: 5px;
+}
+
+.transaction-status-wrap .transaction-text {
+    display: block;
+    margin-bottom: 5px;
+}
+
+.transaction-status-wrap .button {
+    margin-top: 20px;
+}
+
+.transaction-status-wrap.success-transaction .transaction-header {
+    color: var(--success-color);
+}
+
+.transaction-status-wrap.failed-transaction .transaction-header {
+    color: var(--alert-color);
+}
+
+.transaction-status-wrap.success-transaction .button {
+    color: var(--white-color) !important;
+    background-color: var(--success-color);
+}
+
+.transaction-status-wrap.success-transaction .button:hover {
+    background-color: var(--button-on-hover-success-color);
+}
+
+.transaction-status-wrap.failed-transaction .button {
+    color: var(--white-color) !important;
+    background-color: var(--alert-color);
+}
+
+.transaction-status-wrap.failed-transaction .button:hover {
+    background-color: var(--button-on-hover-alert-color);
+}
+
+/* End Transaction Status */

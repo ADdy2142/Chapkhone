@@ -1,0 +1,83 @@
+/* Start Order Types */
+.order-type-items {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+}
+
+.order-type-items .order-type-item {
+    display: block;
+    width: 100%;
+    padding: 10px;
+    min-height: 80px;
+    border-radius: 5px;
+    border: 1px dashed var(--primary-color);
+    background-color: var(--white-color);
+    margin-bottom: 15px;
+    position: relative;
+    overflow: hidden;
+    transition: var(--transition);
+}
+
+.order-type-items .order-type-item:hover {
+    background-color: var(--cream-color);
+}
+
+.order-type-items .order-type-item:first-child {
+    margin-top: 30px;
+}
+
+.order-type-items .order-type-item:last-child {
+    margin-bottom: 0;
+}
+
+.order-type-items .order-type-item .order-type-header {
+    font-size: 18px;
+    font-weight: bold;
+    margin-bottom: 5px;
+    display: block;
+}
+
+.order-type-items .order-type-item .order-type-short-description {
+    display: block;
+}
+
+.order-type-items .order-type-item .order-type-image {
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    width: 470px;
+    background-size: cover;
+    background-position: 50% 50%;
+    border-radius: 5px;
+    clip-path: polygon(0 0, 100% 0, 80% 100%, 0 100%);
+    filter: grayscale(1.2);
+    transition: var(--transition);
+}
+
+.order-type-items .order-type-item:hover .order-type-image {
+    filter: grayscale(0);
+}
+
+.order-type-items .order-type-item .order-type-link {
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    right: 0;
+}
+
+@media screen and (max-width: 992px) {
+    .order-type-items .order-type-item .order-type-image {
+        width: 350px;
+    }
+}
+
+@media screen and (max-width: 428px) {
+    .order-type-items .order-type-item .order-type-image {
+        display: none;
+    }
+}
+
+/* End Order Types */

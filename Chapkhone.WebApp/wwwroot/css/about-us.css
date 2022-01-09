@@ -1,0 +1,18 @@
+/* Start About Us */
+#about-us .site-logo {
+    display: block;
+    width: 120px;
+    height: 120px;
+    border-radius: 50%;
+    box-shadow: var(--shadow);
+    margin-bottom: 20px;
+    background-size: cover;
+    background-position: 50% 50%;
+}
+
+@media screen and (max-width: 428px) {
+    #about-us .site-logo {
+        margin: 0 auto;
+    }
+}
+/* End About Us */

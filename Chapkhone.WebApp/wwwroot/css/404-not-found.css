@@ -1,0 +1,39 @@
+/* Start 404 Not Found */
+#not-found .not-found-title {
+    font-size: 30px;
+    font-weight: bold;
+    color: var(--purple-color);
+    display: block;
+    text-align: center;
+    margin-top: 30px;
+}
+
+#not-found .not-found-text-wrap {
+    text-align: center;
+}
+
+#not-found .not-found-text-wrap .not-found-text-image {
+    width: 206px;
+    display: inline-block;
+    margin: 60px 0;
+}
+
+#not-found .not-found-button {
+    display: inline-block;
+    margin: 0 auto;
+}
+
+@media screen and (max-width: 992px) {
+    #not-found .not-found-text-wrap .not-found-text-image {
+        max-width: 309px;
+    }
+}
+
+@media screen and (max-width: 428px) {
+    #not-found .not-found-button {
+        display: block;
+        margin: 0 auto;
+    }
+}
+
+/* End 404 Not Found */

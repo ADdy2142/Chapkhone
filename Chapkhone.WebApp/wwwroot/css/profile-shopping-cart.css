@@ -1,0 +1,62 @@
+/* Start Shopping Cart List */
+.shopping-cart-list {
+    list-style-type: none;
+    margin: 0;
+    padding: 0;
+}
+
+.shopping-cart-list .shopping-cart-item {
+    padding: 25px 15px;
+    position: relative;
+    display: flex;
+    justify-content: flex-start;
+    align-items: flex-start;
+    gap: 10px;
+    transition: var(--transition);
+    border-radius: 5px;
+    overflow: hidden;
+}
+
+.shopping-cart-list .shopping-cart-item:hover {
+    background-color: var(--light-color);
+}
+
+.shopping-cart-list .shopping-cart-item .product-image-wrap {
+    width: 150px;
+    height: 100px;
+    border-radius: 5px;
+    overflow: hidden;
+}
+
+.shopping-cart-list .shopping-cart-item .product-image-wrap img {
+    display: block;
+    max-width: 100%;
+    max-height: 100%;
+    margin: 0 auto;
+}
+
+.shopping-cart-list .shopping-cart-item .product-title {
+    font-weight: bold;
+    color: var(--purple-color);
+    margin-bottom: 10px;
+    font-size: 12px;
+}
+
+.shopping-cart-list .shopping-cart-item .delete-shopping-cart-item {
+    position: absolute;
+    top: 15px;
+    left: 15px;
+    width: 14px;
+    height: 14px;
+}
+
+.shopping-cart-list .shopping-cart-item .delete-shopping-cart-item svg path {
+    fill: var(--primary-text-color);
+    transition: var(--transition);
+}
+
+.shopping-cart-list .shopping-cart-item .delete-shopping-cart-item:hover svg path {
+    fill: var(--alert-color);
+}
+
+/* End Shopping Cart List */
