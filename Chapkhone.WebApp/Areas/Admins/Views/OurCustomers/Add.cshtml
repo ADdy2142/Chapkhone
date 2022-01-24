@@ -1,0 +1,26 @@
+﻿@model UpsertOurCustomerVM
+
+<div class="container my-5 pt-2">
+    <h5 class="fw-bold mt-4 mb-3">اضافه کردن مشتری جدید</h5>
+    <div class="row mb-4">
+        <div class="col-9 d-flex align-items-center">
+            <span class="d-block text-start fw-bold">مشخصات مشتری</span>
+        </div>
+        <div class="col-3 text-end">
+            <a asp-area="Admins" asp-controller="OurCustomers" asp-action="Index" class="btn btn-outline-secondary btn-sm">بازگشت</a>
+        </div>
+    </div>
+    <form asp-area="Admins" asp-controller="OurCustomers" asp-action="Add" asp-antiforgery="true" method="post" enctype="multipart/form-data" class="mb-5">
+        <input type="hidden" asp-for="Id" />
+        <div class="row">
+            <div class="col-12 mb-2">
+                <label asp-for="Logo" class="d-block form-label">لوگو</label>
+                <input asp-for="Logo" type="file" class="form-control" accept="image/*" />
+                <span class="d-block mt-1 text-info">بهتر است پس زمینه لوگو Transparent باشد.</span>
+            </div>
+            <div class="col-12 text-end">
+                <input type="submit" value="ذخیره" class="btn btn-outline-success btn-sm" />
+            </div>
+        </div>
+    </form>
+</div>

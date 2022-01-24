@@ -22,7 +22,13 @@ namespace Chapkhone.DataAccess.Services.Repository
         {
             var designGroupInDb = await FindAsync(designGroup.Id);
             if (designGroupInDb != null)
+            {
                 designGroupInDb.Title = designGroup.Title;
+                designGroupInDb.ShortDescription = designGroup.ShortDescription;
+                designGroupInDb.ImageName = designGroup.ImageName;
+                designGroupInDb.DesignPrice = designGroup.DesignPrice;
+                designGroupInDb.Discount = designGroup.Discount;
+            }
         }
     }
 }

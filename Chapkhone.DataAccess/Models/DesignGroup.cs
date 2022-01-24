@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Chapkhone.DataAccess.Constants;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
@@ -13,12 +14,16 @@ namespace Chapkhone.DataAccess.Models
         [Key]
         public int Id { get; set; }
 
-        [Required(ErrorMessage = "عنوان نباید خالی باشد.")]
-        [MaxLength(50, ErrorMessage = "عنوان حداکثر می تواند 50 کاراکتر باشد.")]
         public string Title { get; set; }
-
-        public SpecificationOrderType SpecificationOrderType { get; set; }
+        public string ShortDescription { get; set; }
+        public string ImageName { get; set; }
+        public int DesignPrice { get; set; }
+        public int Discount { get; set; }
 
         public ICollection<Product> Products { get; set; }
+        public ICollection<SpecificationOrderGroup> SpecificationOrderGroups { get; set; }
+
+        public string ImageUrl => Urls.SiteUrl + "/images/" + ImageName;
+        public int FinalPrice => DesignPrice - (DesignPrice * Discount / 100);
     }
 }

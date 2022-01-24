@@ -27,6 +27,7 @@ namespace Chapkhone.DataAccess.Services.Repository
                 productInDb.Price = product.Price;
                 productInDb.Description = product.Description;
                 productInDb.Discount = product.Discount;
+                productInDb.DesignGroupId = product.DesignGroupId;
             }
         }
     }

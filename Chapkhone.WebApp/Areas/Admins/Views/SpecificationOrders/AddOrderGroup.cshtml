@@ -1,0 +1,27 @@
+﻿@model UpsertSpecificationOrderGroupVM
+
+<div class="container my-5 pt-2">
+    <h5 class="fw-bold mt-4 mb-3">اضافه کردن گروه مشخصات سفارش</h5>
+    <div class="row mb-4">
+        <div class="col-9 d-flex align-items-center">
+            <span class="d-block text-start fw-bold">مشخصات گروه</span>
+        </div>
+        <div class="col-3 text-end">
+            <a asp-area="Admins" asp-controller="SpecificationOrders" asp-action="OrderGroups" asp-route-designGroupId="@Model.DesignGroupId" class="btn btn-outline-secondary btn-sm">بازگشت</a>
+        </div>
+    </div>
+    <form asp-area="Admins" asp-controller="SpecificationOrders" asp-action="AddOrderGroup" asp-antiforgery="true" method="post">
+        <input type="hidden" asp-for="Id" />
+        <input type="hidden" asp-for="DesignGroupId" />
+        <div class="row">
+            <div class="col-12 mb-2">
+                <label asp-for="Title" class="d-block form-label">عنوان</label>
+                <input asp-for="Title" type="text" class="form-control" />
+                <span asp-validation-for="Title" class="d-block text-danger mt-1"></span>
+            </div>
+            <div class="col-12 text-end">
+                <input type="submit" value="ذخیره" class="btn btn-outline-success btn-sm" />
+            </div>
+        </div>
+    </form>
+</div>

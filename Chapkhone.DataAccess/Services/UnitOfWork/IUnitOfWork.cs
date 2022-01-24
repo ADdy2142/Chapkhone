@@ -12,13 +12,15 @@ namespace Chapkhone.DataAccess.Services.UnitOfWork
         IDesignGroupRepository DesignGroups { get; }
         IProductRepository Products { get; }
         IProductImageRepository ProducImages { get; }
-        ISpecificationOrderTypeRepository SpecificationOrderTypes { get; }
+        IOrderRepository Orders { get; }
+        ISpecificationOrderRepository SpecificationOrders { get; }
         ISpecificationOrderGroupRepository SpecificationOrderGroups { get; }
         ISpecificationOrderImageRepository SpecificationOrderImages { get; }
-        ISpecificationOrderItemRepository SpecificationOrderItems { get; }
+        ISpecificationOrderTitleRepository SpecificationOrderTitles { get; }
         ISpecificationOrderValueRepository SpecificationOrderValues { get; }
         ICustomerCommentRepository CustomerComments { get; }
         IOurCustomerRepository OurCustomers { get; }
+        ISiteNotificationRepository SiteNotifications { get; }
 
         Task SaveAsync();
     }

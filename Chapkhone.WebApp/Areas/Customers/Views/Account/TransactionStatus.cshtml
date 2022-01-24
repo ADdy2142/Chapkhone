@@ -1,0 +1,32 @@
+﻿@model bool
+
+@section Styles {
+<link rel="stylesheet" href="~/css/profile-dashboard.css">
+<link rel="stylesheet" href="~/css/profile-transaction-status.css">
+}
+
+<div class="flex-grow-1">
+    <h3 class="section-header mt-0 mb-5">وضعیت تراکنش</h3>
+    @if (Model)
+    {
+        <div class="transaction-status-wrap success-transaction">
+            <span class="transaction-header">پرداخت موفق</span>
+            <span class="transaction-text">مشتری گرامی با تشکر از اعتماد شما به چاپخانه بخشی،</span>
+            <span class="transaction-text">تراکنش شما با موفقیت پرداخت شد.</span>
+            <span class="transaction-text">کد پیگیری شما: <span class="fw-bold">@ViewBag.RefId</span></span>
+            <a asp-area="" asp-controller="Home" asp-action="Index" class="button">بازگشت به صفحه اصلی</a>
+        </div>
+    }
+    else
+    {
+        <div class="transaction-status-wrap failed-transaction">
+            <span class="transaction-header">پرداخت ناموفق</span>
+            <span class="transaction-text">مشتری گرامی تراکنش با خطا مواجه شد.</span>
+            <span class="transaction-text">
+                چنانچه مبلغی از حساب شما کسر شده باشد، ظرف حداکثر 72 ساعت به حساب
+                شما بازخواهد گشت.
+            </span>
+            <a asp-area="" asp-controller="Home" asp-action="Index" class="button">بازگشت به صفحه اصلی</a>
+        </div>
+    }
+</div>

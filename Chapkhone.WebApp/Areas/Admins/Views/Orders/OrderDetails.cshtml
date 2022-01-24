@@ -1,0 +1,185 @@
+﻿@using Chapkhone.DataAccess.Services.UnitOfWork
+@inject IUnitOfWork UnitOfWork
+@model Order
+
+<div class="container my-5 pt-2">
+    <h5 class="fw-bold my-4">جزئیات سفارش</h5>
+    <div class="bg-warning rounded shadow-sm text-center py-2 px-3 mb-4">
+        <span class="d-block text-dark fw-bold">لطفا توجه داشته باشید که به منظور آزادسازی فضای هاست، چنانچه مشتری تصویر یا تصاویری برای طراحی ارسال کرده باشد، تصاویر ارسالی مشتری ظرف مدت 30 روز حذف خواهند شد پس خواهشمند است تصاویر ارسالی را ذخیره کنید.</span>
+    </div>
+    <div class="row mb-4">
+        <div class="col-9 d-flex align-items-center">
+            <span class="d-block text-start fw-bold"></span>
+        </div>
+        <div class="col-3 text-end">
+            <a asp-area="Admins" asp-controller="Orders" asp-action="Index" class="btn btn-outline-secondary btn-sm">بازگشت</a>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-12">
+            <div class="row bg-light rounded shadow-sm p-2 mb-3">
+                <div class="col-2">
+                    <span class="d-block text-secondary">شناسه سفارش:</span>
+                </div>
+                <div class="col-10">
+                    <span class="d-block text-dark">@Model.Id</span>
+                </div>
+            </div>
+        </div>
+        <div class="col-12">
+            <div class="row bg-light rounded shadow-sm p-2 mb-3">
+                <div class="col-2">
+                    <span class="d-block text-secondary">مبلغ پرداختی:</span>
+                </div>
+                <div class="col-10">
+                    <span class="d-block text-dark">@Model.FinalPrice.ToString("N0") تومان</span>
+                </div>
+            </div>
+        </div>
+        <div class="col-12">
+            <div class="row bg-light rounded shadow-sm p-2 mb-3">
+                <div class="col-2">
+                    <span class="d-block text-secondary">نام مشتری:</span>
+                </div>
+                <div class="col-10">
+                    <span class="d-block text-dark">@Model.Customer.FullName</span>
+                </div>
+            </div>
+        </div>
+        <div class="col-12">
+            <div class="row bg-light rounded shadow-sm p-2 mb-3">
+                <div class="col-2">
+                    <span class="d-block text-secondary">شماره تلفن:</span>
+                </div>
+                <div class="col-10">
+                    <span class="d-block text-dark">@Model.Customer.PhoneNumber</span>
+                </div>
+            </div>
+        </div>
+        <div class="col-12">
+            <div class="row bg-light rounded shadow-sm p-2 mb-3">
+                <div class="col-2">
+                    <span class="d-block text-secondary">پست الکترونیک:</span>
+                </div>
+                <div class="col-10">
+                    <span class="d-block text-dark">@(Model.Customer.Email ?? "-")</span>
+                </div>
+            </div>
+        </div>
+        <div class="col-12">
+            <div class="row bg-light rounded shadow-sm p-2 mb-3">
+                <div class="col-2">
+                    <span class="d-block text-secondary">گروه طراحی:</span>
+                </div>
+                <div class="col-10">
+                    <span class="d-block text-dark">@(Model.SpecificationOrders?.FirstOrDefault()?.SpecificationOrderValues?.FirstOrDefault()?.SpecificationOrderTitle?.SpecificationOrderGroup?.DesignGroup?.Title ?? "-")</span>
+                </div>
+            </div>
+        </div>
+        @if (Model.SpecificationOrders.Count > 0)
+        {
+            int index = 1;
+            foreach (var specificationOrder in Model.SpecificationOrders)
+            {
+                var product = await UnitOfWork.Products.GetFirstOrDefaultAsync(p => p.Id == specificationOrder.ProductId, includeProperties: new string[] { "ProductImages" });
+                <h4 class="text-primary fw-bold">سفارش @index</h4>
+                <div class="col-12">
+                    <div class="row bg-light rounded shadow-sm px-2 py-3 mb-3">
+                        <div class="col-9">
+                            <div class="row p-2 mb-3">
+                                <div class="col-2">
+                                    <span class="d-block text-secondary">عنوان:</span>
+                                </div>
+                                <div class="col-10">
+                                    <span class="d-block text-dark">@specificationOrder.Title</span>
+                                </div>
+                            </div>
+                            <div class="row p-2 mb-3">
+                                <div class="col-2">
+                                    <span class="d-block text-secondary">تعداد:</span>
+                                </div>
+                                <div class="col-10">
+                                    <span class="d-block text-dark">@specificationOrder.Qty</span>
+                                </div>
+                            </div>
+                            <div class="row p-2 mb-3">
+                                <div class="col-2">
+                                    <span class="d-block text-secondary">توضیحات:</span>
+                                </div>
+                                <div class="col-10">
+                                    <span class="d-block text-dark">@(string.IsNullOrEmpty(specificationOrder.Description) ? "-" : specificationOrder.Description)</span>
+                                </div>
+                            </div>
+                            <div class="row p-2 mb-3">
+                                <div class="col-2">
+                                    <span class="d-block text-secondary">مبلغ پرداخت شده:</span>
+                                </div>
+                                <div class="col-10">
+                                    <span class="d-block text-dark">@specificationOrder.FinalPrice.ToString("N0") تومان</span>
+                                </div>
+                            </div>
+                            <div class="row mt-4 rounded bg-warning py-3 px-2">
+                                <div class="col-3">
+                                    <span class="d-block text-secondary fw-bold fs-7 text-dark">خصوصیت خواسته شده</span>
+                                </div>
+                                <div class="col-9">
+                                    <span class="d-block text-secondary fw-bold fs-7 text-dark">مقدار وارد شده</span>
+                                </div>
+                            </div>
+                            @if (specificationOrder.SpecificationOrderValues.Count > 0)
+                            {
+                                foreach (var specificationOrderValue in specificationOrder.SpecificationOrderValues)
+                                {
+                                    <div class="row mt-4 rounded p-2">
+                                        <div class="col-3">
+                                            <span class="d-block text-secondary rounded bg-light">@specificationOrderValue.SpecificationOrderTitle.Title:</span>
+                                        </div>
+                                        <div class="col-9">
+                                            <span class="d-block text-primary">@specificationOrderValue.Value</span>
+                                        </div>
+                                    </div>
+                                }
+                            }
+                        </div>
+                        <div class="col-3">
+                            <div class="d-flex justify-content-center align-items-center">
+                                <img src="@(product?.ProductImages?.FirstOrDefault(pi => !pi.ShowInSlider)?.ImageUrl ?? Model.DefaultImageUrl)" class="img-fluid rounded mx-2 shadow-sm border-2 border-dark">
+                            </div>
+                            @if (product != null)
+                            {
+                                <div class="row">
+                                    <div class="col-12">
+                                        <span class="d-block text-secondary my-2">عنوان محصول:</span>
+                                    </div>
+                                    <div class="col-12">
+                                        <span class="d-block text-primary mb-2">@product.Title</span>
+                                    </div>
+                                    <div class="col-12">
+                                        <a asp-area="Admins" asp-controller="Products" asp-action="Index" asp-route-searchQuery="@product.Title">نمایش محصول</a>
+                                    </div>
+                                </div>
+                            }
+                        </div>
+                    </div>
+                </div>
+                @if (specificationOrder.SpecificationOrderImages.Count > 0)
+                {
+                    <div class="col-12">
+                        <span class="d-block fw-bold fs-5 my-3">تصاویر ارسالی مشتری</span>
+                        <div class="row align-items-stretch mb-5">
+                            @foreach (var specificationOrderImage in specificationOrder.SpecificationOrderImages)
+                            {
+                                <div class="col-4">
+                                    <div class="d-flex justify-content-center align-items-center border w-100 h-100">
+                                        <img src="@specificationOrderImage.ImageUrl" class="img-fluid rounded">
+                                    </div>
+                                </div>
+                            }
+                        </div>
+                    </div>
+                }
+                index++;
+            }
+        }
+    </div>
+</div>

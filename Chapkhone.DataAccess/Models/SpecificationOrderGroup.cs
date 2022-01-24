@@ -13,15 +13,12 @@ namespace Chapkhone.DataAccess.Models
         [Key]
         public int Id { get; set; }
 
-        [Required(ErrorMessage = "عنوان نباید خالی باشد.")]
-        [MaxLength(50, ErrorMessage = "عنوان حداکثر می تواند 50 کاراکتر باشد.")]
         public string Title { get; set; }
+        public int DesignGroupId { get; set; }
 
-        public int SpecificationOrderTypeId { get; set; }
+        [ForeignKey(nameof(DesignGroupId))]
+        public DesignGroup DesignGroup { get; set; }
 
-        [ForeignKey(nameof(SpecificationOrderTypeId))]
-        public SpecificationOrderType SpecificationOrderType { get; set; }
-
-        public ICollection<SpecificationOrderItem> SpecificationOrderItems { get; set; }
+        public ICollection<SpecificationOrderTitle> SpecificationOrderTitles { get; set; }
     }
 }

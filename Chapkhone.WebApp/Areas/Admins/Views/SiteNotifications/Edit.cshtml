@@ -1,0 +1,57 @@
+﻿@model UpsertSiteNotificationVM
+
+<div class="container my-5 pt-2">
+    <h5 class="fw-bold mt-4 mb-3">ویرایش اعلان</h5>
+    <div class="row mb-4">
+        <div class="col-9 d-flex align-items-center">
+            <span class="d-block text-start fw-bold">مشخصات اعلان</span>
+        </div>
+        <div class="col-3 text-end">
+            <a asp-area="Admins" asp-controller="SiteNotifications" asp-action="Index" class="btn btn-outline-secondary btn-sm">بازگشت</a>
+        </div>
+    </div>
+    <form asp-area="Admins" asp-controller="SiteNotifications" asp-action="Edit" asp-antiforgery="true" method="post" enctype="multipart/form-data" class="mb-5">
+        <input type="hidden" asp-for="Id" />
+        <div class="row">
+            <div class="col-12 col-md-8 mb-2">
+                <label asp-for="ImageXL" class="d-block form-label">تصویر اصلی</label>
+                <input asp-for="ImageXL" type="file" class="form-control" accept="image/*" />
+                <span class="d-block mt-1 text-info">در صورتی که تمایل دارید تصویر قبلی حذف و تصویر جدید اضافه شود این گزینه را تغییر دهید.</span>
+                <span class="d-block mt-1 text-info">بهتر است عرض تصویر شما 6 درصد طول آن باشد.</span>
+            </div>
+            <div class="col-12 col-md-4 mb-2">
+                <img src="@Model.ImageUrlXL" alt="تصویر اعلان" class="img-fluid rounded shadow-sm" />
+            </div>
+            <div class="col-12 col-md-8 mb-2">
+                <label asp-for="ImageLG" class="d-block form-label">تصویر در نمایشگرهایی با طول کمتر از 992 پیکسل</label>
+                <input asp-for="ImageLG" type="file" class="form-control" accept="image/*" />
+                <span class="d-block mt-1 text-info">در صورتی که تمایل دارید تصویر قبلی حذف و تصویر جدید اضافه شود این گزینه را تغییر دهید.</span>
+                <span class="d-block mt-1 text-info">بهتر است عرض تصویر شما 12 درصد طول آن باشد.</span>
+            </div>
+            <div class="col-12 col-md-4 mb-2">
+                <img src="@Model.ImageUrlLG" alt="تصویر اعلان" class="img-fluid rounded shadow-sm" />
+            </div>
+            <div class="col-12 col-md-8 mb-2">
+                <label asp-for="ImageMD" class="d-block form-label">تصویر در نمایشگرهایی با طول کمتر از 768 پیکسل</label>
+                <input asp-for="ImageMD" type="file" class="form-control" accept="image/*" />
+                <span class="d-block mt-1 text-info">در صورتی که تمایل دارید تصویر قبلی حذف و تصویر جدید اضافه شود این گزینه را تغییر دهید.</span>
+                <span class="d-block mt-1 text-info">بهتر است عرض تصویر شما 18 درصد طول آن باشد.</span>
+            </div>
+            <div class="col-12 col-md-4 mb-2">
+                <img src="@Model.ImageUrlMD" alt="تصویر اعلان" class="img-fluid rounded shadow-sm" />
+            </div>
+            <div class="col-12 col-md-8 mb-2">
+                <label asp-for="ImageSM" class="d-block form-label">تصویر در نمایشگرهایی با طول کمتر از 428 پیکسل</label>
+                <input asp-for="ImageSM" type="file" class="form-control" accept="image/*" />
+                <span class="d-block mt-1 text-info">در صورتی که تمایل دارید تصویر قبلی حذف و تصویر جدید اضافه شود این گزینه را تغییر دهید.</span>
+                <span class="d-block mt-1 text-info">بهتر است عرض تصویر شما 30 درصد طول آن باشد.</span>
+            </div>
+            <div class="col-12 col-md-4 mb-2">
+                <img src="@Model.ImageUrlSM" alt="تصویر اعلان" class="img-fluid rounded shadow-sm" />
+            </div>
+            <div class="col-12 text-end">
+                <input type="submit" value="ذخیره" class="btn btn-outline-success btn-sm" />
+            </div>
+        </div>
+    </form>
+</div>

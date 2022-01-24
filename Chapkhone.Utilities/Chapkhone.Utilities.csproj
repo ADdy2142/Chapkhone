@@ -5,6 +5,12 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <PackageReference Include="ElmahCore" Version="2.0.7" />
+    <PackageReference Include="ElmahCore.Sql" Version="2.0.7" />
+    <PackageReference Include="MailKit" Version="3.1.0" />
+  </ItemGroup>
+
+  <ItemGroup>
     <ProjectReference Include="..\Chapkhone.DataAccess\Chapkhone.DataAccess.csproj" />
   </ItemGroup>
 

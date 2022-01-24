@@ -1,0 +1,53 @@
+﻿@model ICollection<GetSpecificationOrderTitleVM>
+
+<div class="container my-5 pt-2">
+    <h5 class="fw-bold my-4">مدیریت عناوین گروه مشخصات @ViewBag.OrderGroupTitle</h5>
+    <div class="row mb-4">
+        <div class="col-9 d-flex align-items-center">
+            <span class="d-block text-start fw-bold">لیست عناوین</span>
+        </div>
+        <div class="col-3 text-end">
+            <a asp-area="Admins" asp-controller="SpecificationOrders" asp-action="AddOrderTitle" asp-route-orderGroupId="@ViewBag.OrderGroupId" class="btn btn-outline-primary btn-sm">افزودن عنوان جدید</a>
+        </div>
+    </div>
+    <table class="table table-hover table-striped table-responsive-md align-middle">
+        <thead>
+            <tr>
+                <th scope="col">#</th>
+                <th scope="col">عنوان</th>
+                <th></th>
+            </tr>
+        </thead>
+        <tbody>
+            @{
+                if (Model.Count > 0)
+                {
+                    int index = 1;
+                    foreach (var specificationOrderTitle in Model)
+                    {
+                        <tr>
+                            <th scope="row">@index</th>
+                            <td>@specificationOrderTitle.Title</td>
+                            <td class="text-end">
+                                <div class="dropdown">
+                                    <a class="btn btn-primary btn-sm dropdown-toggle" href="#" role="button" id="dropdownMenuLink" data-bs-toggle="dropdown" aria-expanded="false"></a>
+                                    <ul class="dropdown-menu" aria-labelledby="dropdownMenuLink">
+                                        <li><a class="dropdown-item" asp-area="Admins" asp-controller="SpecificationOrders" asp-action="EditOrderTitle" asp-route-id="@specificationOrderTitle.Id">ویرایش عنوان</a></li>
+                                        <li><a class="dropdown-item text-danger" asp-area="Admins" asp-controller="SpecificationOrders" asp-action="DeleteOrderTitle" asp-route-id="@specificationOrderTitle.Id">حذف عنوان</a></li>
+                                    </ul>
+                                </div>
+                            </td>
+                        </tr>
+                        index++;
+                    }
+                }
+                else
+                {
+                    <tr>
+                        <td class="fw-bold text-primary text-center" colspan="4">هیچ عنوانی اضافه نشده است.</td>
+                    </tr>
+                }
+            }
+        </tbody>
+    </table>
+</div>

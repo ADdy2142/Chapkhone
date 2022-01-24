@@ -1,0 +1,60 @@
+﻿@model ICollection<GetDesignGroupVM>
+
+<div class="container my-5 pt-2">
+    <h5 class="fw-bold my-4">مدیریت گروه های طراحی</h5>
+    <div class="row mb-4">
+        <div class="col-9 d-flex align-items-center">
+            <span class="d-block text-start fw-bold">لیست گروه ها</span>
+        </div>
+        <div class="col-3 text-end">
+            @if (Model != null && Model.Count > 0)
+            {
+                <a asp-area="Admins" asp-controller="DesignGroups" asp-action="Discount" class="btn btn-outline-warning btn-sm">تخفیف کلی</a>
+            }
+            <a asp-area="Admins" asp-controller="DesignGroups" asp-action="Add" class="btn btn-outline-primary btn-sm">افزودن گروه جدید</a>
+        </div>
+    </div>
+    <table class="table table-hover table-striped table-responsive-md align-middle">
+        <thead>
+            <tr>
+                <th scope="col">#</th>
+                <th scope="col">عنوان</th>
+                <th scope="col">تعداد محصولات</th>
+                <th></th>
+            </tr>
+        </thead>
+        <tbody>
+            @{
+                if (Model.Count > 0)
+                {
+                    int index = 1;
+                    foreach (var designGroup in Model)
+                    {
+                        <tr>
+                            <th scope="row">@index</th>
+                            <td>@designGroup.Title</td>
+                            <td>@designGroup.ProductsCount</td>
+                            <td class="text-end">
+                                <div class="dropdown">
+                                    <a class="btn btn-primary btn-sm dropdown-toggle" href="#" role="button" id="dropdownMenuLink" data-bs-toggle="dropdown" aria-expanded="false"></a>
+                                    <ul class="dropdown-menu" aria-labelledby="dropdownMenuLink">
+                                        <li><a class="dropdown-item" asp-area="Admins" asp-controller="DesignGroups" asp-action="Edit" asp-route-id="@designGroup.Id">ویرایش گروه</a></li>
+                                        <li><a class="dropdown-item" asp-area="Admins" asp-controller="SpecificationOrders" asp-action="OrderGroups" asp-route-designGroupId="@designGroup.Id">مدیریت مشخصات سفارش</a></li>
+                                        <li><a class="dropdown-item text-danger" asp-area="Admins" asp-controller="DesignGroups" asp-action="Delete" asp-route-id="@designGroup.Id">حذف گروه</a></li>
+                                    </ul>
+                                </div>
+                            </td>
+                        </tr>
+                        index++;
+                    }
+                }
+                else
+                {
+                    <tr>
+                        <td class="fw-bold text-primary text-center" colspan="4">هیچ گروهی اضافه نشده است.</td>
+                    </tr>
+                }
+            }
+        </tbody>
+    </table>
+</div>

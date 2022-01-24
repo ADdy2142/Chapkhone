@@ -3,11 +3,11 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
 VisualStudioVersion = 17.0.32014.148
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Chapkhone.WebApp", "Chapkhone.WebApp\Chapkhone.WebApp.csproj", "{66B72C0E-C9D8-4D02-A932-B0B745B4AF6B}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Chapkhone.WebApp", "Chapkhone.WebApp\Chapkhone.WebApp.csproj", "{66B72C0E-C9D8-4D02-A932-B0B745B4AF6B}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Chapkhone.DataAccess", "Chapkhone.DataAccess\Chapkhone.DataAccess.csproj", "{3DC70F77-9038-46D5-B166-C4CD8817D70F}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Chapkhone.DataAccess", "Chapkhone.DataAccess\Chapkhone.DataAccess.csproj", "{3DC70F77-9038-46D5-B166-C4CD8817D70F}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Chapkhone.Utilities", "Chapkhone.Utilities\Chapkhone.Utilities.csproj", "{09468B43-376D-43CA-B8A3-36C964DA0D3C}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Chapkhone.Utilities", "Chapkhone.Utilities\Chapkhone.Utilities.csproj", "{09468B43-376D-43CA-B8A3-36C964DA0D3C}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

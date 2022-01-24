@@ -1,0 +1,24 @@
+﻿@model UpsertCustomerCommentVM
+
+@section Styles {
+<link rel="stylesheet" href="~/css/profile-dashboard.css">
+}
+
+<div class="flex-grow-1">
+    <h3 class="section-header mt-0 mb-5">ثبت نظر</h3>
+    <form asp-area="Customers" asp-controller="Account" asp-action="RegisterComment" asp-antiforgery="true" method="post">
+        <input type="hidden" asp-for="OrderId" />
+        <div class="row">
+            <div class="col-12 mb-3">
+                <label asp-for="CommentText" class="custom-input-label">نظر شما</label>
+                <textarea asp-for="CommentText" class="custom-input"></textarea>
+                <span asp-validation-for="CommentText" class="d-block text-info mt-2"></span>
+            </div>
+        </div>
+        <input type="submit" value="ثبت نظر" class="button mt-4">
+    </form>
+</div>
+
+@section Scripts {
+    <partial name="_ValidationScriptsPartial" />
+}

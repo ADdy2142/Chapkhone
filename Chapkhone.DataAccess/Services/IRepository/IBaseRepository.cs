@@ -13,7 +13,7 @@ namespace Chapkhone.DataAccess.Services.IRepository
 
         Task<TEntity> FindAsync(object id);
 
-        Task<TEntity> GetFirstOrDefalutAsync(Expression<Func<TEntity, bool>> filter = null, params string[] includeProperties);
+        Task<TEntity> GetFirstOrDefaultAsync(Expression<Func<TEntity, bool>> filter = null, params string[] includeProperties);
 
         Task<List<TEntity>> GetAllAsync(Expression<Func<TEntity, bool>> filter = null, Func<IQueryable<TEntity>, IOrderedQueryable<TEntity>> orderBy = null, params string[] includeProperties);
 

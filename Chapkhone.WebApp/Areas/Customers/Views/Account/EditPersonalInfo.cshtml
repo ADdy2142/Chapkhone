@@ -1,0 +1,38 @@
+﻿@model EditCustomerPersonalInfoVM
+
+@section Styles {
+    <link rel="stylesheet" href="~/css/profile-dashboard.css">
+}
+
+<div class="flex-grow-1">
+    <h3 class="section-header mt-0 mb-5">ویرایش اطلاعات شخصی</h3>
+    @if (ViewBag.EmailExists)
+    {
+        <span class="d-block text-danger mb-2">ایمیل وارد شده توسط شخص دیگری استفاده شده است.</span>
+    }
+    <form asp-area="Customers" asp-controller="Account" asp-action="EditPersonalInfo" asp-antiforgery="true" method="post">
+        <div class="row">
+            <div class="col-12 col-md-6 mb-3">
+                <label asp-for="FirstName" class="custom-input-label">نام</label>
+                <input asp-for="FirstName" type="text" class="custom-input">
+            </div>
+            <div class="col-12 col-md-6 mb-3">
+                <label asp-for="LastName" class="custom-input-label">نام خانوادگی</label>
+                <input asp-for="LastName" type="text" class="custom-input">
+            </div>
+            <div class="col-12 col-md-6 mb-3">
+                <label asp-for="PhoneNumber" class="custom-input-label">شماره تلفن همراه</label>
+                <input asp-for="PhoneNumber" type="text" class="custom-input disabled" disabled>
+            </div>
+            <div class="col-12 col-md-6 mb-3">
+                <label asp-for="Email" class="custom-input-label">پست الکترونیکی</label>
+                <input asp-for="Email" type="email" class="custom-input">
+            </div>
+        </div>
+        <input type="submit" value="ویرایش" class="button mt-4">
+    </form>
+</div>
+
+@section Scripts {
+    <partial name="_ValidationScriptsPartial" />
+}

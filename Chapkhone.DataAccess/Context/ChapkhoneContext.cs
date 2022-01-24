@@ -17,10 +17,11 @@ namespace Chapkhone.DataAccess.Context
         public DbSet<Product> Products { get; set; }
         public DbSet<ProductImage> ProductImages { get; set; }
         public DbSet<SiteNotification> SiteNotifications { get; set; }
+        public DbSet<Order> Orders { get; set; }
+        public DbSet<SpecificationOrder> SpecificationOrders { get; set; }
         public DbSet<SpecificationOrderGroup> SpecificationOrderGroups { get; set; }
         public DbSet<SpecificationOrderImage> SpecificationOrderImages { get; set; }
-        public DbSet<SpecificationOrderItem> SpecificationOrderItems { get; set; }
-        public DbSet<SpecificationOrderType> SpecificationOrderTypes { get; set; }
+        public DbSet<SpecificationOrderTitle> SpecificationOrderTitles { get; set; }
         public DbSet<SpecificationOrderValue> SpecificationOrderValues { get; set; }
 
         public ChapkhoneContext(DbContextOptions options) : base(options)
@@ -30,15 +31,11 @@ namespace Chapkhone.DataAccess.Context
         protected override void OnModelCreating(ModelBuilder builder)
         {
             base.OnModelCreating(builder);
-            builder.Entity<DesignGroup>()
-                .HasOne(dg => dg.SpecificationOrderType)
-                .WithOne(spec => spec.DesignGroup)
-                .HasForeignKey<SpecificationOrderType>(spec => spec.DesignGroupId);
 
-            builder.Entity<SpecificationOrderItem>()
-                .HasOne(spec => spec.SpecificationOrderValue)
-                .WithOne(spec => spec.SpecificationOrderItem)
-                .HasForeignKey<SpecificationOrderValue>(spec => spec.SpecificationOrderItemId);
+            builder.Entity<Order>()
+                .HasOne(o => o.CustomerComment)
+                .WithOne(cc => cc.Order)
+                .HasForeignKey<CustomerComment>(cc => cc.OrderId);
         }
     }
 }

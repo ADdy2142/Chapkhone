@@ -16,13 +16,15 @@ namespace Chapkhone.DataAccess.Services.UnitOfWork
         public IDesignGroupRepository DesignGroups { get; private set; }
         public IProductRepository Products { get; private set; }
         public IProductImageRepository ProducImages { get; private set; }
-        public ISpecificationOrderTypeRepository SpecificationOrderTypes { get; private set; }
+        public IOrderRepository Orders { get; private set; }
+        public ISpecificationOrderRepository SpecificationOrders { get; private set; }
         public ISpecificationOrderGroupRepository SpecificationOrderGroups { get; private set; }
         public ISpecificationOrderImageRepository SpecificationOrderImages { get; private set; }
-        public ISpecificationOrderItemRepository SpecificationOrderItems { get; private set; }
+        public ISpecificationOrderTitleRepository SpecificationOrderTitles { get; private set; }
         public ISpecificationOrderValueRepository SpecificationOrderValues { get; private set; }
         public ICustomerCommentRepository CustomerComments { get; private set; }
         public IOurCustomerRepository OurCustomers { get; private set; }
+        public ISiteNotificationRepository SiteNotifications { get; private set; }
 
         public UnitOfWork(ChapkhoneContext context)
         {
@@ -30,13 +32,15 @@ namespace Chapkhone.DataAccess.Services.UnitOfWork
             DesignGroups = new DesignGroupRepository(_context);
             Products = new ProductRepository(_context);
             ProducImages = new ProductImageRepository(_context);
-            SpecificationOrderTypes = new SpecificationOrderTypeRepository(_context);
+            Orders = new OrderRepository(_context);
+            SpecificationOrders = new SpecificationOrderRepository(_context);
             SpecificationOrderGroups = new SpecificationOrderGroupRepository(_context);
             SpecificationOrderImages = new SpecificationOrderImageRepository(_context);
-            SpecificationOrderItems = new SpecificationOrderItemRepository(_context);
+            SpecificationOrderTitles = new SpecificationOrderTitleRepository(_context);
             SpecificationOrderValues = new SpecificationOrderValueRepository(_context);
             CustomerComments = new CustomerCommentRepository(_context);
             OurCustomers = new OurCustomerRepository(_context);
+            SiteNotifications = new SiteNotificationRepositoty(_context);
         }
 
         public void Dispose()

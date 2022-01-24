@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Chapkhone.DataAccess.Constants;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.Linq;
@@ -12,6 +13,8 @@ namespace Chapkhone.DataAccess.Models
         [Key]
         public int Id { get; set; }
 
-        public string Logo { get; set; }
+        public string LogoName { get; set; }
+
+        public string LogoUrl => Urls.SiteUrl + "/images/" + LogoName;
     }
 }

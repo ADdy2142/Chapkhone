@@ -1,0 +1,84 @@
+﻿@model GetProductVM
+
+<div class="container my-5 pt-2">
+    <h5 class="fw-bold my-4">مدیریت تصاویر محصول @Model.Title</h5>
+    <div class="row mb-4">
+        <div class="col-9 d-flex flex-wrap align-items-center">
+            <span class="d-block w-100 text-start fw-bold">لیست تصاویر</span>
+            <span class="d-block w-100 mt-1 text-info">برای نمایش بهتر، ابعاد تصاویر شما یکسان باشد.</span>
+        </div>
+        <div class="col-3 text-end">
+            <a asp-area="Admins" asp-controller="Products" asp-action="Index" class="btn btn-outline-secondary btn-sm">بازگشت</a>
+        </div>
+        <div class="col-12">
+            <form asp-area="Admins" asp-controller="Products" asp-action="AddProductImage" asp-antiforgery="true" method="post" enctype="multipart/form-data" class="mt-3 d-flex justify-content-end align-items-end gap-2">
+                <input type="hidden" name="productId" value="@Model.Id" />
+                <div class="add-product-image-input-group">
+                    <div>
+                        <label for="productImages" class="d-block form-label">افزودن تصاویر جدید</label>
+                        <input name="productImages" id="productImages" type="file" class="form-control form-control-sm" accept="image/*" multiple />
+                    </div>
+                </div>
+                <input type="submit" value="ذخیره" class="btn btn-outline-primary btn-sm" />
+            </form>
+        </div>
+    </div>
+    <div class="row align-items-stretch mb-5">
+        @foreach (var productImage in Model.ProductImages)
+        {
+            if (!productImage.ShowInSlider)
+            {
+                <div class="col-12 col-sm-2 col-md-3 col-lg-4 bg-light border border-1 position-relative p-3 d-flex justify-content-center align-items-center">
+                    <img src="@productImage.ImageUrl" class="img-fluid" alt="@Model.Title" />
+                    <a asp-area="Admins" asp-controller="Products" asp-action="DeleteProductImage" asp-route-id="@productImage.Id" class="delete-product-image">
+                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 47.971 47.971"
+                     xmlns:v="https://vecta.io/nano">
+                            <path d="M28.228 23.986L47.092 5.122a3 3 0 0 0 0-4.242 3 3 0 0 0-4.242 0L23.986 19.744 5.121.88a3 3 0 0 0-4.242 0 3 3 0 0 0 0 4.242l18.865 18.864L.879 42.85a3 3 0 0 0 0 4.242c.586.585 1.354.878 2.121.878a2.99 2.99 0 0 0 2.121-.879l18.865-18.864L42.85 47.091a2.99 2.99 0 0 0 4.242 0 3 3 0 0 0 0-4.242L28.228 23.986z" />
+                        </svg>
+                    </a>
+                </div>
+            }
+        }
+    </div>
+    @{
+        var sliderImage = Model.ProductImages.Where(p => p.ShowInSlider).FirstOrDefault();
+        <div class="row mb-4">
+            <div class="col-12">
+                <span class="d-block text-start fw-bold">تصویر اسلاید</span>
+                @if (sliderImage == null)
+                {
+                    <span class="d-block mt-1 text-info">برای نمایش بهتر طول تصویر شما 1.5 برابر عرض آن باشد.</span>
+                }
+            </div>
+            @if (sliderImage == null)
+            {
+                <div class="col-12">
+                    <form asp-area="Admins" asp-controller="Products" asp-action="AddProductImage" asp-antiforgery="true" method="post" enctype="multipart/form-data" class="mt-3 d-flex justify-content-end align-items-end gap-2">
+                        <input type="hidden" name="productId" value="@Model.Id" />
+                        <div class="add-product-image-input-group">
+                            <div>
+                                <label for="sliderImage" class="d-block form-label">انتخاب تصویر</label>
+                                <input name="sliderImage" id="sliderImage" type="file" class="form-control form-control-sm" accept="image/*" />
+                            </div>
+                        </div>
+                        <input type="submit" value="ذخیره" class="btn btn-outline-primary btn-sm" />
+                    </form>
+                </div>
+            }
+        </div>
+        @if (sliderImage != null)
+        {
+            <div class="row align-items-stretch mb-5">
+                <div class="col-12 bg-light border border-1 position-relative p-3">
+                    <img src="@sliderImage.ImageUrl" class="img-fluid w-100" alt="@Model.Title" />
+                    <a asp-area="Admins" asp-controller="Products" asp-action="DeleteProductImage" asp-route-id="@sliderImage.Id" class="delete-product-image">
+                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 47.971 47.971"
+                         xmlns:v="https://vecta.io/nano">
+                            <path d="M28.228 23.986L47.092 5.122a3 3 0 0 0 0-4.242 3 3 0 0 0-4.242 0L23.986 19.744 5.121.88a3 3 0 0 0-4.242 0 3 3 0 0 0 0 4.242l18.865 18.864L.879 42.85a3 3 0 0 0 0 4.242c.586.585 1.354.878 2.121.878a2.99 2.99 0 0 0 2.121-.879l18.865-18.864L42.85 47.091a2.99 2.99 0 0 0 4.242 0 3 3 0 0 0 0-4.242L28.228 23.986z" />
+                        </svg>
+                    </a>
+                </div>
+            </div>
+        }
+    }
+</div>

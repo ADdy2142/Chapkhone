@@ -22,7 +22,7 @@ namespace Chapkhone.DataAccess.Services.Repository
         {
             var ourCustomerInDb = await FindAsync(ourCustomer.Id);
             if (ourCustomerInDb != null)
-                ourCustomerInDb.Logo = ourCustomer.Logo;
+                ourCustomerInDb.LogoName = ourCustomer.LogoName;
         }
     }
 }

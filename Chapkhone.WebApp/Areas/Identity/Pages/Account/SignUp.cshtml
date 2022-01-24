@@ -1,0 +1,94 @@
+﻿@page
+@model Chapkhone.WebApp.Areas.Identity.Pages.Account.SignUpModel
+@{
+    Layout = null;
+}
+
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>چاپخانه بخشی - ثبت نام</title>
+
+    <link rel="stylesheet" href="~/css/bootstrap.rtl.min.css">
+    <link rel="stylesheet" href="~/css/style.css">
+    <link rel="stylesheet" href="~/css/auth-style.css">
+</head>
+
+<body class="direction-rtl">
+    <!-- Start Auth -->
+    <div class="auth-card">
+        <div class="auth-right-panel">
+            <div>
+                <h3 class="panel-title">خوش آمدید.</h3>
+                <span class="panel-text">برای دسترسی به تمام بخش های سایت، لطفا یک حساب کاربری بسازید.</span>
+            </div>
+            <div>
+                <span class="panel-text">اگر حساب کاربری دارید از لینک زیر وارد شوید.</span>
+                <a asp-page="./SignIn" asp-route-returnUrl="@Model.ReturnUrl" class="button">ورود به سایت</a>
+            </div>
+        </div>
+        <div class="auth-content">
+            <form method="post">
+                <div class="row">
+                    <div class="col-12">
+                        <h3 class="auth-title">ساخت حساب کاربری</h3>
+                    </div>
+                    @if (!string.IsNullOrEmpty(Model.SignUpError))
+                    {
+                        <div class="col-12 my-3">
+                            <span class="d-block text-danger">@Model.SignUpError</span>
+                        </div>
+                    }
+                    <div class="col-12 col-sm-6 auth-input-group">
+                        <label asp-for="SignUpVM.FirstName" class="custom-input-label">نام</label>
+                        <input asp-for="SignUpVM.FirstName" type="text" class="custom-input">
+                        <span class="d-block text-danger mt-2" asp-validation-for="SignUpVM.FirstName"></span>
+                    </div>
+                    <div class="col-12 col-sm-6 auth-input-group">
+                        <label asp-for="SignUpVM.LastName" class="custom-input-label">نام خانوادگی</label>
+                        <input asp-for="SignUpVM.LastName" type="text" class="custom-input">
+                        <span class="d-block text-danger mt-2" asp-validation-for="SignUpVM.LastName"></span>
+                    </div>
+                    <div class="col-12 auth-input-group">
+                        <label asp-for="SignUpVM.PhoneNumber" class="custom-input-label">شماره تلفن همراه</label>
+                        <input asp-for="SignUpVM.PhoneNumber" type="text" class="custom-input">
+                        <span class="d-block text-danger mt-2" asp-validation-for="SignUpVM.PhoneNumber"></span>
+                    </div>
+                    <div class="col-12 col-sm-6 auth-input-group">
+                        <label asp-for="SignUpVM.Password" class="custom-input-label">کلمه عبور</label>
+                        <input asp-for="SignUpVM.Password" type="password" class="custom-input">
+                        <span class="d-block text-danger mt-2" asp-validation-for="SignUpVM.Password"></span>
+                    </div>
+                    <div class="col-12 col-sm-6 auth-input-group">
+                        <label asp-for="SignUpVM.ConfirmPassword" class="custom-input-label">تکرار کلمه عبور</label>
+                        <input asp-for="SignUpVM.ConfirmPassword" type="password" class="custom-input">
+                        <span class="d-block text-danger mt-2" asp-validation-for="SignUpVM.ConfirmPassword"></span>
+                    </div>
+                </div>
+                <div class="d-none d-sm-flex justify-content-between w-100 auth-action-buttons">
+                    <input type="submit" value="ساخت حساب کاربری" class="button" />
+                    <a asp-area="" asp-controller="Home" asp-action="Index" class="button light-button">بازگشت به صفحه اصلی</a>
+                </div>
+                <div class="d-block d-sm-none auth-action-buttons">
+                    <input type="submit" value="ساخت حساب کاربری" class="button primary-button" />
+                    <span class="secondary-button-title">حساب کاربری دارید؟ از لینک زیر وارد شوید.</span>
+                    <a asp-page="./SignIn" asp-route-returnUrl="@Model.ReturnUrl" class="button secondary-button">ورود به سایت</a>
+                    <a asp-area="" asp-controller="Home" asp-action="Index" class="button light-button">بازگشت به صفحه اصلی</a>
+                </div>
+            </form>
+        </div>
+    </div>
+    <!-- End Auth -->
+    <!-- Start Scripts -->
+    <script src="~/js/jquery-3.6.0.min.js"></script>
+    <script src="~/js/bootstrap.bundle.min.js"></script>
+    <script src="~/lib/jquery-validate/jquery.validate.js"></script>
+    <script src="~/lib/jquery-validation-unobtrusive/jquery.validate.unobtrusive.js"></script>
+    <!-- End Scripts -->
+</body>
+
+</html>

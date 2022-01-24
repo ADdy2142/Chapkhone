@@ -17,5 +17,10 @@ namespace Chapkhone.DataAccess.Services.Repository
         {
             _context = context;
         }
+
+        public void DeleteRange(IEnumerable<SpecificationOrderValue> specificationOrderValues)
+        {
+            _context.SpecificationOrderValues.RemoveRange(specificationOrderValues);
+        }
     }
 }

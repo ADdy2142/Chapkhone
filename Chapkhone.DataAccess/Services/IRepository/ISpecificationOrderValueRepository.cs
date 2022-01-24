@@ -9,5 +9,6 @@ namespace Chapkhone.DataAccess.Services.IRepository
 {
     public interface ISpecificationOrderValueRepository : IBaseRepository<SpecificationOrderValue>
     {
+        void DeleteRange(IEnumerable<SpecificationOrderValue> specificationOrderValues);
     }
 }

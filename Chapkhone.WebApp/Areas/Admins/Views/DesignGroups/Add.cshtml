@@ -1,0 +1,46 @@
+﻿@model UpsertDesignGroupVM
+
+<div class="container my-5 pt-2">
+    <h5 class="fw-bold mt-4 mb-3">اضافه کردن گروه جدید</h5>
+    <div class="row mb-4">
+        <div class="col-9 d-flex align-items-center">
+            <span class="d-block text-start fw-bold">مشخصات گروه</span>
+        </div>
+        <div class="col-3 text-end">
+            <a asp-area="Admins" asp-controller="DesignGroups" asp-action="Index" class="btn btn-outline-secondary btn-sm">بازگشت</a>
+        </div>
+    </div>
+    <form asp-area="Admins" asp-controller="DesignGroups" asp-action="Add" asp-antiforgery="true" method="post" enctype="multipart/form-data">
+        <input type="hidden" asp-for="Id" />
+        <div class="row">
+            <div class="col-12 mb-2">
+                <label asp-for="Title" class="d-block form-label">عنوان</label>
+                <input asp-for="Title" type="text" class="form-control" />
+                <span asp-validation-for="Title" class="d-block text-danger mt-1"></span>
+            </div>
+            <div class="col-12 col-md-6 mb-2">
+                <label asp-for="DesignPrice" class="d-block form-label">هزینه طراحی (تومان)</label>
+                <input asp-for="DesignPrice" type="text" class="form-control" />
+                <span asp-validation-for="DesignPrice" class="d-block text-danger mt-1"></span>
+            </div>
+            <div class="col-12 col-md-6 mb-2">
+                <label asp-for="Discount" class="d-block form-label">تخفیف (درصد)</label>
+                <input asp-for="Discount" type="text" class="form-control" />
+                <span asp-validation-for="Discount" class="d-block text-danger mt-1"></span>
+            </div>
+            <div class="col-12 mb-2">
+                <label asp-for="ShortDescription" class="d-block form-label">توضیحات کوتاه</label>
+                <textarea class="form-control" asp-for="ShortDescription" rows="5"></textarea>
+                <span asp-validation-for="ShortDescription" class="d-block text-danger mt-1"></span>
+            </div>
+            <div class="col-12 mb-2">
+                <label asp-for="DesignGroupImage" class="d-block form-label">تصویر</label>
+                <input asp-for="DesignGroupImage" type="file" class="form-control" accept="image/*" />
+                <span class="d-block mt-1 text-info">بهتر است طول تصویر شما چهار برابر عرض آن باشد.</span>
+            </div>
+            <div class="col-12 text-end">
+                <input type="submit" value="ذخیره" class="btn btn-outline-success btn-sm" />
+            </div>
+        </div>
+    </form>
+</div>

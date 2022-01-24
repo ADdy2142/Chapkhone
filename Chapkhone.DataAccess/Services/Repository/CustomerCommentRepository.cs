@@ -17,5 +17,12 @@ namespace Chapkhone.DataAccess.Services.Repository
         {
             _context = context;
         }
+
+        public async Task UpdateAsync(CustomerComment customerComment)
+        {
+            var customerCommentInDb = await FindAsync(customerComment.Id);
+            if (customerCommentInDb != null)
+                customerCommentInDb.AllowedToShow = customerComment.AllowedToShow;
+        }
     }
 }

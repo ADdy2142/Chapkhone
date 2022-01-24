@@ -1,4 +1,4 @@
-$(document).ready(function () {
+﻿$(document).ready(function () {
     // Toggle Navbar Items
     var navbarToggleButton = $(".navbar-toggle-button");
     $(navbarToggleButton).click(function (e) {
@@ -113,50 +113,6 @@ $(document).ready(function () {
                 $(container).append(imageWrap);
             }
         }
-    });
-
-    var prevSortItem = $(".sort-content .sort-list-items .sort-list-item .button.active");
-
-    // Get Products by Sorting
-    $(".sort-list-item .button").click(function (e) {
-        e.preventDefault();
-        debugger;
-        var currentSortItem = $(this);
-        if ($(prevSortItem).html() === $(currentSortItem).html()) {
-            return;
-        } else {
-            $(prevSortItem).removeClass("active");
-            prevSortItem = currentSortItem;
-            $(prevSortItem).addClass("active");
-        }
-
-        var sortingBy;
-        switch ($(this).html()) {
-            case "جدیدترین":
-                sortingBy = 0;
-                break;
-
-            case "قدیمی ترین":
-                sortingBy = 1;
-                break;
-
-            case "گرانترین":
-                sortingBy = 2;
-                break;
-
-            case "ارزانترین":
-                sortingBy = 3;
-                break;
-
-            default:
-                break;
-        }
-
-        var productsContainer = $("#products-container");
-        $.get("ajax/test.html", function (data) {
-            $(productsContainer).empty();
-            $(productsContainer).html(data);
-        });
     });
 
     // Submit Form When User Image Changed

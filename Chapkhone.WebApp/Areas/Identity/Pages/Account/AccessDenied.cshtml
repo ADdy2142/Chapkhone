@@ -1,0 +1,22 @@
+﻿@page
+@model Chapkhone.WebApp.Areas.Identity.Pages.Account.AccessDeniedModel
+@addTagHelper *, Microsoft.AspNetCore.Mvc.TagHelpers
+@{
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+@section Styles {
+    <link rel="stylesheet" href="~/css/404-not-found.css">
+}
+
+<!-- Start Access Denied -->
+<section id="not-found" class="direction-rtl">
+    <div class="container">
+        <h2 class="not-found-title">شما اجازه دسترسی به این بخش را ندارید.</h2>
+        <span class="d-block text-center my-5 fw-bold fs-5 text-secondary">متاسفانه شما قادر به ادامه نیستید. شما به این بخش دسترسی ندارید.</span>
+        <div class="text-center">
+            <a asp-area="" asp-controller="Home" asp-action="Index" class="button not-found-button">بازگشت به صفحه اصلی</a>
+        </div>
+    </div>
+</section>
+<!-- End Access Denied -->

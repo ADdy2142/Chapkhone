@@ -17,5 +17,15 @@ namespace Chapkhone.DataAccess.Services.Repository
         {
             _context = context;
         }
+
+        public async Task AddRangeAsync(IEnumerable<ProductImage> productImages)
+        {
+            await _context.ProductImages.AddRangeAsync(productImages);
+        }
+
+        public void DeleteRange(IEnumerable<ProductImage> productImages)
+        {
+            _context.ProductImages.RemoveRange(productImages);
+        }
     }
 }

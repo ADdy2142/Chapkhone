@@ -14,3 +14,72 @@
 * {
     font-family: "Vazir", sans-serif;
 }
+
+body {
+    font-size: 14px;
+}
+
+/* Start Search Products Form */
+#search-products-form {
+    display: flex;
+    justify-content: flex-end;
+    align-items: center;
+}
+
+    #search-products-form .search-products-form-content {
+        width: 33%;
+    }
+
+@media screen and (max-width: 992px) {
+    #search-products-form .search-products-form-content {
+        width: 50%;
+    }
+}
+
+@media screen and (max-width: 428px) {
+    #search-products-form .search-products-form-content {
+        width: 100%;
+    }
+}
+
+/* End Search Products Form */
+/* Start Add Product Image Form */
+.add-product-image-input-group {
+    width: 33%;
+}
+
+@media screen and (max-width: 992px) {
+    .add-product-image-input-group {
+        width: 50%;
+    }
+}
+
+@media screen and (max-width: 428px) {
+    .add-product-image-input-group {
+        width: 100%;
+    }
+}
+
+/* End Search Products Form */
+/* Start Delete Product Image */
+.delete-product-image {
+    position: absolute;
+    display: inline-block;
+    top: 10px;
+    left: 10px;
+    cursor: pointer;
+}
+
+    .delete-product-image svg {
+        width: 24px;
+        height: 24px;
+        padding: 5px;
+        border-radius: 50%;
+        background-color: #ffc107;
+    }
+
+        .delete-product-image svg path {
+            fill: #222;
+        }
+
+/* End Delete Product Image */

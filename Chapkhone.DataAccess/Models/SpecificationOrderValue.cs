@@ -13,12 +13,15 @@ namespace Chapkhone.DataAccess.Models
         [Key]
         public int Id { get; set; }
 
-        [Required(ErrorMessage = "مشتری گرامی، لطفا مقدار خواسته شده را وارد کنید.")]
         public string Value { get; set; }
+        public int SpecificationOrderTitleId { get; set; }
 
-        public int SpecificationOrderItemId { get; set; }
+        [ForeignKey(nameof(SpecificationOrderTitleId))]
+        public SpecificationOrderTitle SpecificationOrderTitle { get; set; }
 
-        [ForeignKey(nameof(SpecificationOrderItemId))]
-        public SpecificationOrderItem SpecificationOrderItem { get; set; }
+        public int SpecificationOrderId { get; set; }
+
+        [ForeignKey(nameof(SpecificationOrderId))]
+        public SpecificationOrder SpecificationOrder { get; set; }
     }
 }

@@ -1,0 +1,59 @@
+﻿@model UpsertProductVM
+
+<div class="container my-5 pt-2">
+    <h5 class="fw-bold mt-4 mb-3">اضافه کردن محصول جدید</h5>
+    <div class="row mb-4">
+        <div class="col-9 d-flex align-items-center">
+            <span class="d-block text-start fw-bold">مشخصات محصول</span>
+        </div>
+        <div class="col-3 text-end">
+            <a asp-area="Admins" asp-controller="Products" asp-action="Index" class="btn btn-outline-secondary btn-sm">بازگشت</a>
+        </div>
+    </div>
+    <form asp-area="Admins" asp-controller="Products" asp-action="Add" asp-antiforgery="true" method="post" enctype="multipart/form-data" class="mb-5">
+        <input type="hidden" asp-for="Id" />
+        <div class="row">
+            <div class="col-12 col-md-6 mb-2">
+                <label asp-for="Title" class="d-block form-label">عنوان</label>
+                <input asp-for="Title" type="text" class="form-control" />
+                <span asp-validation-for="Title" class="d-block text-danger mt-1"></span>
+            </div>
+            <div class="col-12 col-md-6 mb-2">
+                <label asp-for="Price" class="d-block form-label">قیمت (تومان)</label>
+                <input asp-for="Price" type="text" class="form-control" />
+                <span asp-validation-for="Price" class="d-block text-danger mt-1"></span>
+            </div>
+            <div class="col-12 col-md-6 mb-2">
+                <label asp-for="Discount" class="d-block form-label">تخفیف (درصد)</label>
+                <input asp-for="Discount" type="text" class="form-control" />
+                <span asp-validation-for="Discount" class="d-block text-danger mt-1"></span>
+            </div>
+            <div class="col-12 col-md-6 mb-2">
+                <label asp-for="DesignGroupId" class="d-block form-label">گروه طراحی</label>
+                <select asp-for="DesignGroupId" asp-items="@ViewBag.DesignGroups" class="form-select" aria-label="Default select example">
+                    <option selected disabled>انتخاب کنید...</option>
+                </select>
+                <span asp-validation-for="DesignGroupId" class="d-block text-danger mt-1"></span>
+            </div>
+            <div class="col-12 mb-2">
+                <label asp-for="Description" class="d-block form-label">توضیحات</label>
+                <textarea class="form-control" asp-for="Description" rows="5"></textarea>
+                <span asp-validation-for="Description" class="d-block text-danger mt-1"></span>
+            </div>
+            <div class="col-12 mb-2">
+                <label asp-for="ProductImageFiles" class="d-block form-label">تصاویر محصول</label>
+                <input asp-for="ProductImageFiles" type="file" class="form-control" accept="image/*" multiple />
+                <span class="d-block mt-1 text-info">برای نمایش بهتر، ابعاد تصاویر شما یکسان باشد.</span>
+            </div>
+            <div class="col-12 mb-2">
+                <label asp-for="SliderImageFile" class="d-block form-label">تصویر اسلایدر</label>
+                <input asp-for="SliderImageFile" type="file" class="form-control" accept="image/*" />
+                <span class="d-block mt-1 text-info">اگر تمایل دارید که محصول در صفحه اول نمایش داده شود برای آن تصویری انتخاب کنید در غیر این صورت نیاز به تغییر این گزینه نیست.</span>
+                <span class="d-block mt-1 text-info">برای نمایش بهتر طول تصویر شما 1.5 برابر عرض آن باشد.</span>
+            </div>
+            <div class="col-12 text-end">
+                <input type="submit" value="ذخیره" class="btn btn-outline-success btn-sm" />
+            </div>
+        </div>
+    </form>
+</div>

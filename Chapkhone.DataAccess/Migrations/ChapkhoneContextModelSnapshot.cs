@@ -41,7 +41,7 @@ namespace Chapkhone.DataAccess.Migrations
                     b.Property<string>("FirstName")
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<string>("Image")
+                    b.Property<string>("ImageName")
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("LastName")
@@ -100,20 +100,24 @@ namespace Chapkhone.DataAccess.Migrations
                         .HasColumnType("int")
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
-                    b.Property<bool>("CanShow")
+                    b.Property<bool>("AllowedToShow")
                         .HasColumnType("bit");
 
                     b.Property<string>("CommentText")
-                        .IsRequired()
-                        .HasMaxLength(350)
-                        .HasColumnType("nvarchar(350)");
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("CustomerId")
                         .HasColumnType("nvarchar(450)");
 
+                    b.Property<int>("OrderId")
+                        .HasColumnType("int");
+
                     b.HasKey("Id");
 
                     b.HasIndex("CustomerId");
+
+                    b.HasIndex("OrderId")
+                        .IsUnique();
 
                     b.ToTable("CustomerComments");
                 });
@@ -125,14 +129,59 @@ namespace Chapkhone.DataAccess.Migrations
                         .HasColumnType("int")
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
+                    b.Property<int>("DesignPrice")
+                        .HasColumnType("int");
+
+                    b.Property<int>("Discount")
+                        .HasColumnType("int");
+
+                    b.Property<string>("ImageName")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("ShortDescription")
+                        .HasColumnType("nvarchar(max)");
+
                     b.Property<string>("Title")
-                        .IsRequired()
-                        .HasMaxLength(50)
-                        .HasColumnType("nvarchar(50)");
+                        .HasColumnType("nvarchar(max)");
 
                     b.HasKey("Id");
 
                     b.ToTable("DesignGroups");
+                });
+
+            modelBuilder.Entity("Chapkhone.DataAccess.Models.Order", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int")
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<string>("CustomerId")
+                        .HasColumnType("nvarchar(450)");
+
+                    b.Property<bool>("IsFinalized")
+                        .HasColumnType("bit");
+
+                    b.Property<bool>("IsVisitedByAdmin")
+                        .HasColumnType("bit");
+
+                    b.Property<DateTime?>("OrderDate")
+                        .HasColumnType("datetime2");
+
+                    b.Property<int>("TotalDiscount")
+                        .HasColumnType("int");
+
+                    b.Property<int>("TotalPrice")
+                        .HasColumnType("int");
+
+                    b.Property<bool>("TransactionStatus")
+                        .HasColumnType("bit");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("CustomerId");
+
+                    b.ToTable("Orders");
                 });
 
             modelBuilder.Entity("Chapkhone.DataAccess.Models.OurCustomer", b =>
@@ -142,7 +191,7 @@ namespace Chapkhone.DataAccess.Migrations
                         .HasColumnType("int")
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
-                    b.Property<string>("Logo")
+                    b.Property<string>("LogoName")
                         .HasColumnType("nvarchar(max)");
 
                     b.HasKey("Id");
@@ -157,23 +206,20 @@ namespace Chapkhone.DataAccess.Migrations
                         .HasColumnType("int")
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
-                    b.Property<double>("Description")
-                        .HasMaxLength(350)
-                        .HasColumnType("float");
+                    b.Property<string>("Description")
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<int>("DesignGroupId")
                         .HasColumnType("int");
 
-                    b.Property<double>("Discount")
-                        .HasColumnType("float");
+                    b.Property<int>("Discount")
+                        .HasColumnType("int");
 
-                    b.Property<double>("Price")
-                        .HasColumnType("float");
+                    b.Property<int>("Price")
+                        .HasColumnType("int");
 
                     b.Property<string>("Title")
-                        .IsRequired()
-                        .HasMaxLength(50)
-                        .HasColumnType("nvarchar(50)");
+                        .HasColumnType("nvarchar(max)");
 
                     b.HasKey("Id");
 
@@ -189,11 +235,14 @@ namespace Chapkhone.DataAccess.Migrations
                         .HasColumnType("int")
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
+                    b.Property<string>("ImageName")
+                        .HasColumnType("nvarchar(max)");
+
                     b.Property<int>("ProductId")
                         .HasColumnType("int");
 
-                    b.Property<string>("Url")
-                        .HasColumnType("nvarchar(max)");
+                    b.Property<bool>("ShowInSlider")
+                        .HasColumnType("bit");
 
                     b.HasKey("Id");
 
@@ -209,12 +258,62 @@ namespace Chapkhone.DataAccess.Migrations
                         .HasColumnType("int")
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
-                    b.Property<string>("Image")
+                    b.Property<string>("ImageNameLG")
                         .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("ImageNameMD")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("ImageNameSM")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("ImageNameXL")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<bool>("IsDefault")
+                        .HasColumnType("bit");
 
                     b.HasKey("Id");
 
                     b.ToTable("SiteNotifications");
+                });
+
+            modelBuilder.Entity("Chapkhone.DataAccess.Models.SpecificationOrder", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int")
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<string>("Description")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<int>("DesignGroupId")
+                        .HasColumnType("int");
+
+                    b.Property<int>("OrderId")
+                        .HasColumnType("int");
+
+                    b.Property<int>("ProductId")
+                        .HasColumnType("int");
+
+                    b.Property<int>("Qty")
+                        .HasColumnType("int");
+
+                    b.Property<string>("Title")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<int>("TotalDiscount")
+                        .HasColumnType("int");
+
+                    b.Property<int>("TotalPrice")
+                        .HasColumnType("int");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("OrderId");
+
+                    b.ToTable("SpecificationOrders");
                 });
 
             modelBuilder.Entity("Chapkhone.DataAccess.Models.SpecificationOrderGroup", b =>
@@ -224,17 +323,15 @@ namespace Chapkhone.DataAccess.Migrations
                         .HasColumnType("int")
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
-                    b.Property<int>("SpecificationOrderTypeId")
+                    b.Property<int>("DesignGroupId")
                         .HasColumnType("int");
 
                     b.Property<string>("Title")
-                        .IsRequired()
-                        .HasMaxLength(50)
-                        .HasColumnType("nvarchar(50)");
+                        .HasColumnType("nvarchar(max)");
 
                     b.HasKey("Id");
 
-                    b.HasIndex("SpecificationOrderTypeId");
+                    b.HasIndex("DesignGroupId");
 
                     b.ToTable("SpecificationOrderGroups");
                 });
@@ -246,20 +343,20 @@ namespace Chapkhone.DataAccess.Migrations
                         .HasColumnType("int")
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
-                    b.Property<int>("SpecificationOrderTypeId")
-                        .HasColumnType("int");
-
-                    b.Property<string>("Url")
+                    b.Property<string>("ImageName")
                         .HasColumnType("nvarchar(max)");
+
+                    b.Property<int>("SpecificationOrderId")
+                        .HasColumnType("int");
 
                     b.HasKey("Id");
 
-                    b.HasIndex("SpecificationOrderTypeId");
+                    b.HasIndex("SpecificationOrderId");
 
                     b.ToTable("SpecificationOrderImages");
                 });
 
-            modelBuilder.Entity("Chapkhone.DataAccess.Models.SpecificationOrderItem", b =>
+            modelBuilder.Entity("Chapkhone.DataAccess.Models.SpecificationOrderTitle", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
@@ -270,8 +367,7 @@ namespace Chapkhone.DataAccess.Migrations
                         .HasColumnType("tinyint");
 
                     b.Property<string>("ShortDescription")
-                        .HasMaxLength(100)
-                        .HasColumnType("nvarchar(100)");
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<int>("SpecificationOrderGroupId")
                         .HasColumnType("int");
@@ -280,61 +376,13 @@ namespace Chapkhone.DataAccess.Migrations
                         .HasColumnType("tinyint");
 
                     b.Property<string>("Title")
-                        .IsRequired()
-                        .HasMaxLength(50)
-                        .HasColumnType("nvarchar(50)");
+                        .HasColumnType("nvarchar(max)");
 
                     b.HasKey("Id");
 
                     b.HasIndex("SpecificationOrderGroupId");
 
-                    b.ToTable("SpecificationOrderItems");
-                });
-
-            modelBuilder.Entity("Chapkhone.DataAccess.Models.SpecificationOrderType", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int")
-                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
-
-                    b.Property<string>("BannerUrl")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<int>("DesignGroupId")
-                        .HasColumnType("int");
-
-                    b.Property<string>("OrderDescription")
-                        .HasMaxLength(350)
-                        .HasColumnType("nvarchar(350)");
-
-                    b.Property<int>("OrderQty")
-                        .HasColumnType("int");
-
-                    b.Property<string>("OrderTitle")
-                        .IsRequired()
-                        .HasMaxLength(50)
-                        .HasColumnType("nvarchar(50)");
-
-                    b.Property<double>("Price")
-                        .HasColumnType("float");
-
-                    b.Property<string>("ShortDescription")
-                        .IsRequired()
-                        .HasMaxLength(100)
-                        .HasColumnType("nvarchar(100)");
-
-                    b.Property<string>("Title")
-                        .IsRequired()
-                        .HasMaxLength(50)
-                        .HasColumnType("nvarchar(50)");
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("DesignGroupId")
-                        .IsUnique();
-
-                    b.ToTable("SpecificationOrderTypes");
+                    b.ToTable("SpecificationOrderTitles");
                 });
 
             modelBuilder.Entity("Chapkhone.DataAccess.Models.SpecificationOrderValue", b =>
@@ -344,17 +392,20 @@ namespace Chapkhone.DataAccess.Migrations
                         .HasColumnType("int")
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
-                    b.Property<int>("SpecificationOrderItemId")
+                    b.Property<int>("SpecificationOrderId")
+                        .HasColumnType("int");
+
+                    b.Property<int>("SpecificationOrderTitleId")
                         .HasColumnType("int");
 
                     b.Property<string>("Value")
-                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.HasKey("Id");
 
-                    b.HasIndex("SpecificationOrderItemId")
-                        .IsUnique();
+                    b.HasIndex("SpecificationOrderId");
+
+                    b.HasIndex("SpecificationOrderTitleId");
 
                     b.ToTable("SpecificationOrderValues");
                 });
@@ -437,12 +488,10 @@ namespace Chapkhone.DataAccess.Migrations
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserLogin<string>", b =>
                 {
                     b.Property<string>("LoginProvider")
-                        .HasMaxLength(128)
-                        .HasColumnType("nvarchar(128)");
+                        .HasColumnType("nvarchar(450)");
 
                     b.Property<string>("ProviderKey")
-                        .HasMaxLength(128)
-                        .HasColumnType("nvarchar(128)");
+                        .HasColumnType("nvarchar(450)");
 
                     b.Property<string>("ProviderDisplayName")
                         .HasColumnType("nvarchar(max)");
@@ -479,12 +528,10 @@ namespace Chapkhone.DataAccess.Migrations
                         .HasColumnType("nvarchar(450)");
 
                     b.Property<string>("LoginProvider")
-                        .HasMaxLength(128)
-                        .HasColumnType("nvarchar(128)");
+                        .HasColumnType("nvarchar(450)");
 
                     b.Property<string>("Name")
-                        .HasMaxLength(128)
-                        .HasColumnType("nvarchar(128)");
+                        .HasColumnType("nvarchar(450)");
 
                     b.Property<string>("Value")
                         .HasColumnType("nvarchar(max)");
@@ -498,6 +545,23 @@ namespace Chapkhone.DataAccess.Migrations
                 {
                     b.HasOne("Chapkhone.DataAccess.Models.Customer", "Customer")
                         .WithMany()
+                        .HasForeignKey("CustomerId");
+
+                    b.HasOne("Chapkhone.DataAccess.Models.Order", "Order")
+                        .WithOne("CustomerComment")
+                        .HasForeignKey("Chapkhone.DataAccess.Models.CustomerComment", "OrderId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Customer");
+
+                    b.Navigation("Order");
+                });
+
+            modelBuilder.Entity("Chapkhone.DataAccess.Models.Order", b =>
+                {
+                    b.HasOne("Chapkhone.DataAccess.Models.Customer", "Customer")
+                        .WithMany("Orders")
                         .HasForeignKey("CustomerId");
 
                     b.Navigation("Customer");
@@ -525,32 +589,43 @@ namespace Chapkhone.DataAccess.Migrations
                     b.Navigation("Product");
                 });
 
-            modelBuilder.Entity("Chapkhone.DataAccess.Models.SpecificationOrderGroup", b =>
+            modelBuilder.Entity("Chapkhone.DataAccess.Models.SpecificationOrder", b =>
                 {
-                    b.HasOne("Chapkhone.DataAccess.Models.SpecificationOrderType", "SpecificationOrderType")
-                        .WithMany("SpecificationOrderGroups")
-                        .HasForeignKey("SpecificationOrderTypeId")
+                    b.HasOne("Chapkhone.DataAccess.Models.Order", "Order")
+                        .WithMany("SpecificationOrders")
+                        .HasForeignKey("OrderId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.Navigation("SpecificationOrderType");
+                    b.Navigation("Order");
+                });
+
+            modelBuilder.Entity("Chapkhone.DataAccess.Models.SpecificationOrderGroup", b =>
+                {
+                    b.HasOne("Chapkhone.DataAccess.Models.DesignGroup", "DesignGroup")
+                        .WithMany("SpecificationOrderGroups")
+                        .HasForeignKey("DesignGroupId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("DesignGroup");
                 });
 
             modelBuilder.Entity("Chapkhone.DataAccess.Models.SpecificationOrderImage", b =>
                 {
-                    b.HasOne("Chapkhone.DataAccess.Models.SpecificationOrderType", "SpecificationOrderType")
+                    b.HasOne("Chapkhone.DataAccess.Models.SpecificationOrder", "SpecificationOrder")
                         .WithMany("SpecificationOrderImages")
-                        .HasForeignKey("SpecificationOrderTypeId")
+                        .HasForeignKey("SpecificationOrderId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.Navigation("SpecificationOrderType");
+                    b.Navigation("SpecificationOrder");
                 });
 
-            modelBuilder.Entity("Chapkhone.DataAccess.Models.SpecificationOrderItem", b =>
+            modelBuilder.Entity("Chapkhone.DataAccess.Models.SpecificationOrderTitle", b =>
                 {
                     b.HasOne("Chapkhone.DataAccess.Models.SpecificationOrderGroup", "SpecificationOrderGroup")
-                        .WithMany("SpecificationOrderItems")
+                        .WithMany("SpecificationOrderTitles")
                         .HasForeignKey("SpecificationOrderGroupId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
@@ -558,26 +633,23 @@ namespace Chapkhone.DataAccess.Migrations
                     b.Navigation("SpecificationOrderGroup");
                 });
 
-            modelBuilder.Entity("Chapkhone.DataAccess.Models.SpecificationOrderType", b =>
-                {
-                    b.HasOne("Chapkhone.DataAccess.Models.DesignGroup", "DesignGroup")
-                        .WithOne("SpecificationOrderType")
-                        .HasForeignKey("Chapkhone.DataAccess.Models.SpecificationOrderType", "DesignGroupId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.Navigation("DesignGroup");
-                });
-
             modelBuilder.Entity("Chapkhone.DataAccess.Models.SpecificationOrderValue", b =>
                 {
-                    b.HasOne("Chapkhone.DataAccess.Models.SpecificationOrderItem", "SpecificationOrderItem")
-                        .WithOne("SpecificationOrderValue")
-                        .HasForeignKey("Chapkhone.DataAccess.Models.SpecificationOrderValue", "SpecificationOrderItemId")
+                    b.HasOne("Chapkhone.DataAccess.Models.SpecificationOrder", "SpecificationOrder")
+                        .WithMany("SpecificationOrderValues")
+                        .HasForeignKey("SpecificationOrderId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.Navigation("SpecificationOrderItem");
+                    b.HasOne("Chapkhone.DataAccess.Models.SpecificationOrderTitle", "SpecificationOrderTitle")
+                        .WithMany("SpecificationOrderValues")
+                        .HasForeignKey("SpecificationOrderTitleId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("SpecificationOrder");
+
+                    b.Navigation("SpecificationOrderTitle");
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRoleClaim<string>", b =>
@@ -631,11 +703,23 @@ namespace Chapkhone.DataAccess.Migrations
                         .IsRequired();
                 });
 
+            modelBuilder.Entity("Chapkhone.DataAccess.Models.Customer", b =>
+                {
+                    b.Navigation("Orders");
+                });
+
             modelBuilder.Entity("Chapkhone.DataAccess.Models.DesignGroup", b =>
                 {
                     b.Navigation("Products");
 
-                    b.Navigation("SpecificationOrderType");
+                    b.Navigation("SpecificationOrderGroups");
+                });
+
+            modelBuilder.Entity("Chapkhone.DataAccess.Models.Order", b =>
+                {
+                    b.Navigation("CustomerComment");
+
+                    b.Navigation("SpecificationOrders");
                 });
 
             modelBuilder.Entity("Chapkhone.DataAccess.Models.Product", b =>
@@ -643,21 +727,21 @@ namespace Chapkhone.DataAccess.Migrations
                     b.Navigation("ProductImages");
                 });
 
+            modelBuilder.Entity("Chapkhone.DataAccess.Models.SpecificationOrder", b =>
+                {
+                    b.Navigation("SpecificationOrderImages");
+
+                    b.Navigation("SpecificationOrderValues");
+                });
+
             modelBuilder.Entity("Chapkhone.DataAccess.Models.SpecificationOrderGroup", b =>
                 {
-                    b.Navigation("SpecificationOrderItems");
+                    b.Navigation("SpecificationOrderTitles");
                 });
 
-            modelBuilder.Entity("Chapkhone.DataAccess.Models.SpecificationOrderItem", b =>
+            modelBuilder.Entity("Chapkhone.DataAccess.Models.SpecificationOrderTitle", b =>
                 {
-                    b.Navigation("SpecificationOrderValue");
-                });
-
-            modelBuilder.Entity("Chapkhone.DataAccess.Models.SpecificationOrderType", b =>
-                {
-                    b.Navigation("SpecificationOrderGroups");
-
-                    b.Navigation("SpecificationOrderImages");
+                    b.Navigation("SpecificationOrderValues");
                 });
 #pragma warning restore 612, 618
         }

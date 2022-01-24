@@ -1,0 +1,98 @@
+﻿@page
+@model Chapkhone.WebApp.Areas.Identity.Pages.Account.SignInModel
+@{
+    Layout = null;
+}
+
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>چاپخانه بخشی - ورود</title>
+
+    <link rel="stylesheet" href="~/css/bootstrap.rtl.min.css">
+    <link rel="stylesheet" href="~/css/style.css">
+    <link rel="stylesheet" href="~/css/auth-style.css">
+</head>
+
+<body class="direction-rtl">
+    <!-- Start Auth -->
+    <div class="auth-card">
+        <div class="auth-right-panel">
+            <div>
+                <h3 class="panel-title">خوش آمدید.</h3>
+                <span class="panel-text">برای دسترسی به تمام بخش های سایت، لطفا وارد حساب کاربری خود شوید.</span>
+            </div>
+            <div>
+                <span class="panel-text">برای ساخت حساب کاربری از لینک زیر استفاده کنید.</span>
+                <a asp-page="./SignUp" asp-route-returnUrl="@Model.ReturnUrl" class="button">ساخت حساب کاربری</a>
+            </div>
+        </div>
+        <div class="auth-content">
+            <form method="post">
+                <div class="row">
+                    <div class="col-12">
+                        <h3 class="auth-title">ورود به سایت</h3>
+                    </div>
+                    @if (!string.IsNullOrEmpty(Model.SignInError))
+                    {
+                        <div class="col-12 my-3">
+                            <span class="d-block text-danger">@Model.SignInError</span>
+                        </div>
+                    }
+                    @if (Model.ForgetPassword)
+                    {
+                        <div class="col-12 my-3">
+                            <span class="d-block text-info">ایمیل حاوی لینک بازیابی کلمه عبور برای شما ارسال شد.</span>
+                        </div>
+                    }
+                    @if (Model.ChangePassword)
+                    {
+                        <div class="col-12 my-3">
+                            <span class="d-block text-info">کلمه عبور شما با موفقیت تغییر یافت.</span>
+                        </div>
+                    }
+                    <div class="col-12 auth-input-group">
+                        <label asp-for="SignInVM.PhoneNumber" class="custom-input-label">شماره تلفن همراه</label>
+                        <input asp-for="SignInVM.PhoneNumber" type="text" class="custom-input">
+                        <span class="d-block text-danger mt-2" asp-validation-for="SignInVM.PhoneNumber"></span>
+                    </div>
+                    <div class="col-12 auth-input-group">
+                        <label asp-for="SignInVM.Password" class="custom-input-label">کلمه عبور</label>
+                        <input asp-for="SignInVM.Password" type="password" class="custom-input">
+                        <span class="d-block text-danger mt-2" asp-validation-for="SignInVM.Password"></span>
+                    </div>
+                    <div class="col-12 auth-input-group d-flex justify-content-start align-items-center">
+                        <input type="checkbox" class="custom-checkbox-input" asp-for="SignInVM.RememberMe" />
+                        <label asp-for="SignInVM.RememberMe" class="custom-checkbox-label">مرا به خاطر بسپار</label>
+                    </div>
+                    <div class="col-12 auth-input-group">
+                        <a asp-page="./ForgetPassword" class="text-decoration-none text-info">کلمه عبور خود را فراموش کرده ام</a>
+                    </div>
+                </div>
+                <div class="d-none d-sm-flex justify-content-between w-100 auth-action-buttons">
+                    <input type="submit" value="ورود به سایت" class="button" />
+                    <a asp-area="" asp-controller="Home" asp-action="Index" class="button light-button">بازگشت به صفحه اصلی</a>
+                </div>
+                <div class="d-block d-sm-none auth-action-buttons">
+                    <input type="submit" value="ورود به سایت" class="button primary-button" />
+                    <span class="secondary-button-title">حساب کاربری ندارید؟ یک حساب برای خود بسازید.</span>
+                    <a asp-page="./SignUp" asp-route-returnUrl="@Model.ReturnUrl" class="button secondary-button">ساخت حساب کاربری</a>
+                    <a asp-area="" asp-controller="Home" asp-action="Index" class="button light-button">بازگشت به صفحه اصلی</a>
+                </div>
+            </form>
+        </div>
+    </div>
+    <!-- End Auth -->
+    <!-- Start Scripts -->
+    <script src="~/js/jquery-3.6.0.min.js"></script>
+    <script src="~/js/bootstrap.bundle.min.js"></script>
+    <script src="~/lib/jquery-validate/jquery.validate.js"></script>
+    <script src="~/lib/jquery-validation-unobtrusive/jquery.validate.unobtrusive.js"></script>
+    <!-- End Scripts -->
+</body>
+
+</html>

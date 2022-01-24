@@ -13,7 +13,9 @@ namespace Chapkhone.DataAccess.Profiles
     {
         public CustomerCommentsProfile()
         {
-            CreateMap<CustomerComment, GetCustomerCommentViewModel>();
+            CreateMap<CustomerComment, GetCustomerCommentVM>();
+            CreateMap<CustomerComment, UpsertCustomerCommentVM>();
+            CreateMap<UpsertCustomerCommentVM, CustomerComment>();
         }
     }
 }

@@ -1,0 +1,147 @@
+﻿@using Chapkhone.DataAccess.Services.UnitOfWork
+@inject IUnitOfWork UnitOfWork
+@model GetOrderDetailsVM
+
+@section Styles {
+<link rel="stylesheet" href="~/css/product-details.css">
+<link rel="stylesheet" href="~/css/order.css">
+}
+
+@{
+    var product = await UnitOfWork.Products.GetFirstOrDefaultAsync(p => p.Id == Model.ProductId, includeProperties: new string[] { "ProductImages", "DesignGroup.SpecificationOrderGroups.SpecificationOrderTitles" });
+    <!-- Start Product Details -->
+    <section id="product-details">
+        <div class="container direction-rtl">
+            <div class="row">
+                <div class="col-12 col-md-5">
+                    <div class="swiper product-details-images-swiper">
+                        <div class="swiper-wrapper">
+                            @if (product.ProductImages.Count > 0)
+                            {
+                                foreach (var image in product.ProductImages)
+                                {
+                                    @if (!image.ShowInSlider)
+                                    {
+                                        <div class="swiper-slide">
+                                            <div class="product-details-image" style="background-image: url('@image.ImageUrl');">
+                                            </div>
+                                        </div>
+                                    }
+                                }
+                            }
+                        </div>
+                    </div>
+                </div>
+                <div class="col-12 col-md-7">
+                    <div class="product-details-info">
+                        <h3 class="product-title">@product.Title</h3>
+                        <div class="row">
+                            <div class="col-3">
+                                <span class="product-info-text">نوع طراحی:</span>
+                            </div>
+                            <div class="col-9">
+                                <span class="product-info-value fw-bold">@product.DesignGroup.Title</span>
+                            </div>
+                            <div class="col-3">
+                                <span class="product-info-text">قیمت:</span>
+                            </div>
+                            <div class="col-9">
+                                <span class="product-info-value fw-bold @(product.Discount > 0 ? "text-danger text-decoration-line-through" : "")">@product.Price.ToString("N0") تومان</span>
+                            </div>
+                            @if (product.Discount > 0)
+                            {
+                                <div class="col-3">
+                                    <span class="product-info-text">تخفیف:</span>
+                                </div>
+                                <div class="col-9">
+                                    <span class="product-info-value text-primary fw-bold">%@product.Discount</span>
+                                </div>
+                                <div class="col-3">
+                                    <span class="product-info-text">قیمت با تخفیف:</span>
+                                </div>
+                                <div class="col-9">
+                                    <span class="product-info-value text-primary fw-bold">@product.FinalPrice.ToString("N0") تومان</span>
+                                </div>
+                            }
+                        </div>
+                        <p class="product-details-value fw-bold">@product.Description</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    <!-- End Product Details -->
+}
+<!-- Start Order Form -->
+<section id="order-form-section" class="direction-rtl">
+    <div class="container">
+        <form asp-controller="Home" asp-action="AddToCart" asp-antiforgery="true" method="post" enctype="multipart/form-data" id="order-form">
+            <input type="hidden" asp-for="DesignGroupId" />
+            <input type="hidden" asp-for="ProductId" />
+            <h3 class="order-form-title">جزئیات طراحی</h3>
+            <div class="row">
+                <div class="col-12 col-md-6 custom-input-group">
+                    <label asp-for="Title" class="d-block custom-input-label">عنوان</label>
+                    <input asp-for="Title" type="text" class="custom-input">
+                    <span class="text-danger mt-2 d-block" asp-validation-for="Title"></span>
+                </div>
+                <div class="col-12 col-md-6 custom-input-group">
+                    <label asp-for="Qty" class="d-block custom-input-label">تعداد</label>
+                    <input asp-for="Qty" type="number" min="1" class="custom-input">
+                    <span class="text-danger mt-2 d-block" asp-validation-for="Qty"></span>
+                </div>
+            </div>
+            @if (Model.SpecificationOrderGroups.Count > 0)
+            {
+                int index = 0;
+                foreach (var specificationOrderGroup in Model.SpecificationOrderGroups)
+                {
+                    <h3 class="order-form-title">@specificationOrderGroup.Title</h3>
+                    @if (specificationOrderGroup.SpecificationOrderTitles.Count > 0)
+                    {
+                        <div class="row">
+                            @foreach (var specificationOrderTitle in specificationOrderGroup.SpecificationOrderTitles)
+                            {
+                                <div class="col-12 @specificationOrderTitle.Size custom-input-group">
+                                    <input type="hidden" asp-for="SpecificationOrderValues[index].SpecificationOrderTitleId" value="@specificationOrderTitle.Id">
+                                    <label asp-for="SpecificationOrderValues[index].Value" class="d-block custom-input-label">@specificationOrderTitle.Title</label>
+                                    <input asp-for="SpecificationOrderValues[index].Value" type="text" class="custom-input">
+                                    <span class="input-info-text">@specificationOrderTitle.ShortDescription</span>
+                                    <span class="text-danger mt-2 d-block" asp-validation-for="SpecificationOrderValues[index].Value"></span>
+                                </div>
+                                index++;
+                            }
+                        </div>
+                    }
+                }
+            }
+            <h3 class="order-form-title">سایر اطلاعات</h3>
+            <div class="row">
+                <div class="col-12 custom-input-group">
+                    <label asp-for="Description" for="#" class="d-block custom-input-label">توضیحات</label>
+                    <textarea asp-for="Description" type="text" class="custom-input mb-3"></textarea>
+                </div>
+                @*<div class="col-12 custom-input-group">
+                    <label for="files" class="custom-file-label">تصاویر طراحی</label>
+                    <input asp-for="CustomerImages" type="file" id="files" class="d-none customer-design-file-input" multiple
+                    accept="image/*">
+                    <span class="input-info-text">
+                    مشتری گرامی در صورتی که نیاز به طراحی ندارید و طرح خاصی مدنظر
+                    شماست، لطفا تصاویر مربوط به طراحی را ارسال کنید. در غیر این صورت از تغییر این گزینه صرف نظر
+                    کنید و طراحی نیز برای شما انجام می شود.
+                    </span>
+                    </div>*@
+                <div class="col-12 mt-4 custom-input-group">
+                    <div class="d-flex justify-content-start align-items-center flex-wrap gap-2 customer-design-image-container"></div>
+                </div>
+                <div class="d-flex justify-content-end">
+                    <input type="submit" value="افزودن به سبد خرید" class="button order-form-submit">
+                </div>
+            </div>
+        </form>
+    </div>
+</section>
+<!-- End Order Form -->
+@section Scripts {
+<partial name="_ValidationScriptsPartial" />
+}

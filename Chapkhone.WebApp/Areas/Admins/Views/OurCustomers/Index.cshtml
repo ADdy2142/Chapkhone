@@ -1,0 +1,53 @@
+﻿@model ICollection<GetOurCustomerVM>
+
+<div class="container my-5 pt-2">
+    <h5 class="fw-bold my-4">مدیریت مشتریان ما</h5>
+    <div class="row mb-4">
+        <div class="col-9 d-flex align-items-center">
+            <span class="d-block text-start fw-bold">لیست مشتریان</span>
+        </div>
+        <div class="col-3 text-end">
+            <a asp-area="Admins" asp-controller="OurCustomers" asp-action="Add" class="btn btn-outline-primary btn-sm">افزودن مشتری جدید</a>
+        </div>
+    </div>
+    <table class="table table-hover table-striped table-responsive-md align-middle">
+        <thead>
+            <tr>
+                <th scope="col">#</th>
+                <th scope="col">لوگو</th>
+                <th></th>
+            </tr>
+        </thead>
+        <tbody>
+            @{
+                if (Model.Count > 0)
+                {
+                    int index = 1;
+                    foreach (var ourCustomer in Model)
+                    {
+                        <tr>
+                            <th scope="row">@index</th>
+                            <td><div style="height: 40px;" class="rounded rounded-3"><img src="@ourCustomer.LogoUrl" alt="لوگو" style="maxmax-width: 100%; max-height: 100%;" /></div></td>
+                            <td class="text-end">
+                                <div class="dropdown">
+                                    <a class="btn btn-primary btn-sm dropdown-toggle" href="#" role="button" id="dropdownMenuLink" data-bs-toggle="dropdown" aria-expanded="false"></a>
+                                    <ul class="dropdown-menu" aria-labelledby="dropdownMenuLink">
+                                        <li><a class="dropdown-item" asp-area="Admins" asp-controller="OurCustomers" asp-action="Edit" asp-route-id="@ourCustomer.Id">ویرایش مشتری</a></li>
+                                        <li><a class="dropdown-item text-danger" asp-area="Admins" asp-controller="OurCustomers" asp-action="Delete" asp-route-id="@ourCustomer.Id">حذف مشتری</a></li>
+                                    </ul>
+                                </div>
+                            </td>
+                        </tr>
+                        index++;
+                    }
+                }
+                else
+                {
+                    <tr>
+                        <td class="fw-bold text-primary text-center" colspan="3">هیچ مشتری اضافه نشده است.</td>
+                    </tr>
+                }
+            }
+        </tbody>
+    </table>
+</div>

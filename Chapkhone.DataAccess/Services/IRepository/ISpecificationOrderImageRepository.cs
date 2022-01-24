@@ -9,5 +9,8 @@ namespace Chapkhone.DataAccess.Services.IRepository
 {
     public interface ISpecificationOrderImageRepository : IBaseRepository<SpecificationOrderImage>
     {
+        Task AddRangeAsync(IEnumerable<SpecificationOrderImage> specificationOrderImages);
+
+        void DeleteRange(IEnumerable<SpecificationOrderImage> specificationOrderImages);
     }
 }

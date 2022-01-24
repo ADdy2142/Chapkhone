@@ -1,0 +1,68 @@
+﻿@model CustomerComment
+
+<div class="container my-5 pt-2">
+    <h5 class="fw-bold my-4">جزئیات نظر مشتری</h5>
+    <div class="row mb-4">
+        <div class="col-9 d-flex align-items-center">
+            <span class="d-block text-start fw-bold"></span>
+        </div>
+        <div class="col-3 text-end">
+            <a asp-area="Admins" asp-controller="CustomerComments" asp-action="Index" class="btn btn-outline-secondary btn-sm">بازگشت</a>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-12">
+            <div class="row bg-light rounded shadow-sm p-2 mb-3">
+                <div class="col-2">
+                    <span class="d-block text-secondary">نام مشتری:</span>
+                </div>
+                <div class="col-10">
+                    <span class="d-block text-dark">@Model.Customer.FullName</span>
+                </div>
+            </div>
+        </div>
+        <div class="col-12">
+            <div class="row bg-light rounded shadow-sm p-2 mb-3">
+                <div class="col-2">
+                    <span class="d-block text-secondary">شماره تلفن:</span>
+                </div>
+                <div class="col-10">
+                    <span class="d-block text-dark">@Model.Customer.PhoneNumber</span>
+                </div>
+            </div>
+        </div>
+        <div class="col-12">
+            <div class="row bg-light rounded shadow-sm p-2 mb-3">
+                <div class="col-2">
+                    <span class="d-block text-secondary">پست الکترونیک:</span>
+                </div>
+                <div class="col-10">
+                    <span class="d-block text-dark">@(Model.Customer.Email ?? "-")</span>
+                </div>
+            </div>
+        </div>
+        <div class="col-12">
+            <div class="row bg-light rounded shadow-sm p-2 mb-3">
+                <div class="col-2">
+                    <span class="d-block text-secondary">متن نظر:</span>
+                </div>
+                <div class="col-10">
+                    <span class="d-block text-dark">@Model.CommentText</span>
+                </div>
+            </div>
+        </div>
+        <div class="col-12">
+            <div class="row bg-light rounded shadow-sm p-2 mb-3">
+                <div class="col-2">
+                    <span class="d-block text-secondary">جزئیات سفارش:</span>
+                </div>
+                <div class="col-10">
+                    <span class="d-block"><a asp-area="Admins" asp-controller="Orders" asp-action="OrderDetails" asp-route-orderId="@Model.OrderId" class="text-dark">مشاهده</a></span>
+                </div>
+            </div>
+        </div>
+        <div class="col-12 mt-5 text-end">
+            <a asp-area="Admins" asp-controller="CustomerComments" asp-action="GivePermission" asp-route-id="@Model.Id" class="btn btn-outline-success btn-sm d-block d-sm-inline-block">اجازه نمایش دارد</a>
+        </div>
+    </div>
+</div>

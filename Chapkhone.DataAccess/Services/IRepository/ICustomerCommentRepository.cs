@@ -9,5 +9,6 @@ namespace Chapkhone.DataAccess.Services.IRepository
 {
     public interface ICustomerCommentRepository : IBaseRepository<CustomerComment>
     {
+        Task UpdateAsync(CustomerComment customerComment);
     }
 }

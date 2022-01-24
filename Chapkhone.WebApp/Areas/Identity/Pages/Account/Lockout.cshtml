@@ -1,0 +1,60 @@
+﻿@page
+@model Chapkhone.WebApp.Areas.Identity.Pages.Account.LockoutModel
+@{
+    Layout = null;
+}
+
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>چاپخانه بخشی - حساب شما قفل شد</title>
+
+    <link rel="stylesheet" href="~/css/bootstrap.rtl.min.css">
+    <link rel="stylesheet" href="~/css/style.css">
+    <link rel="stylesheet" href="~/css/auth-style.css">
+</head>
+
+<body class="direction-rtl">
+    <!-- Start Auth -->
+    <div class="auth-card">
+        <div class="auth-right-panel">
+            <div>
+                <h3 class="panel-title">حساب شما قفل شد.</h3>
+                <span class="panel-text">مشتری گرامی شما بیش از حد رمز خود را اشتباه وارد کرده اید.</span>
+            </div>
+            <div>
+                <span class="panel-text">برای ورود به سایت از لینک زیر استفاده کنید.</span>
+                <a asp-page="./SignIn" class="button">ورود به سایت</a>
+            </div>
+        </div>
+        <div class="auth-content">
+            <div class="row">
+                <div class="col-12">
+                    <h3 class="auth-title">حساب شما قفل شد.</h3>
+                </div>
+                <span class="text-danger">در صورتی که کلمه عبور خود را فراموش کرده اید از فراموشی کلمه عبور استفاده کنید. در غیر این صورت لطفا چند دقیقه صبر کنید، سپس دوباره به سایت وارد شوید.</span>
+            </div>
+            <div class="d-none d-sm-flex justify-content-between w-100 auth-action-buttons">
+                <a asp-page="./ForgetPassword" class="button">فراموشی کلمه عبور</a>
+                <a asp-area="" asp-controller="Home" asp-action="Index" class="button light-button">بازگشت به صفحه اصلی</a>
+            </div>
+            <div class="d-block d-sm-none auth-action-buttons">
+                <a asp-page="./ForgetPassword" class="button primary-button">فراموشی کلمه عبور</a>
+                <span class="secondary-button-title">برای ورود به سایت از لینک زیر استفاده کنید.</span>
+                <a asp-page="./SignIn" class="button secondary-button">ورود به صفحه اصلی</a>
+                <a asp-area="" asp-controller="Home" asp-action="Index" class="button light-button">بازگشت به صفحه اصلی</a>
+            </div>
+        </div>
+    </div>
+    <!-- End Auth -->
+    <!-- Start Scripts -->
+    <script src="~/js/jquery-3.6.0.min.js"></script>
+    <script src="~/js/bootstrap.bundle.min.js"></script>
+    <!-- End Scripts -->
+</body>
+
+</html>

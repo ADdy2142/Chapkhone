@@ -1,0 +1,72 @@
+﻿@model ICollection<GetProductVM>
+
+<div class="container my-5 pt-2">
+    <h5 class="fw-bold my-4">مدیریت محصولات</h5>
+    <div class="row mb-4">
+        <div class="col-9 d-flex align-items-center">
+            <span class="d-block text-start fw-bold">لیست محصولات</span>
+        </div>
+        <div class="col-3 text-end">
+            @if (Model != null && Model.Count > 0)
+            {
+                <a asp-area="Admins" asp-controller="Products" asp-action="Discount" class="btn btn-outline-warning btn-sm">تخفیف کلی</a>
+            }
+            <a asp-area="Admins" asp-controller="Products" asp-action="Add" class="btn btn-outline-primary btn-sm">افزودن محصول جدید</a>
+        </div>
+        <div class="col-12 mt-3">
+            <form asp-area="Admins" asp-controller="Products" asp-action="Index" method="get" id="search-products-form">
+                <div class="search-products-form-content d-flex justify-content-between align-items-center">
+                    <input type="text" name="searchQuery" autocomplete="off" class="form-control d-inline-block mx-2 form-control-sm" />
+                    <input type="submit" value="جستجو" class="btn btn-outline-primary d-inline-block btn-sm" />
+                </div>
+            </form>
+        </div>
+    </div>
+    <table class="table table-hover table-striped table-responsive-md align-middle">
+        <thead>
+            <tr>
+                <th scope="col">#</th>
+                <th scope="col">عنوان</th>
+                <th scope="col">گروه طراحی</th>
+                <th scope="col">قیمت</th>
+                <th scope="col">تخفیف</th>
+                <th></th>
+            </tr>
+        </thead>
+        <tbody>
+            @{
+                if (Model.Count > 0)
+                {
+                    int index = 1;
+                    foreach (var product in Model)
+                    {
+                        <tr>
+                            <th scope="row">@index</th>
+                            <td>@product.Title</td>
+                            <td>@product.DesignGroupTitle</td>
+                            <td>@product.Price.ToString("N0") تومان</td>
+                            <td>@product.Discount.ToString("0.00") درصد</td>
+                            <td class="text-end">
+                                <div class="dropdown">
+                                    <a class="btn btn-primary btn-sm dropdown-toggle" href="#" role="button" id="dropdownMenuLink" data-bs-toggle="dropdown" aria-expanded="false"></a>
+                                    <ul class="dropdown-menu" aria-labelledby="dropdownMenuLink">
+                                        <li><a class="dropdown-item" asp-area="Admins" asp-controller="Products" asp-action="Edit" asp-route-id="@product.Id">ویرایش محصول</a></li>
+                                        <li><a class="dropdown-item" asp-area="Admins" asp-controller="Products" asp-action="ProductImages" asp-route-productId="@product.Id" asp-route-productTitle="@product.Title.Replace(' ', '-')">مدیریت تصاویر</a></li>
+                                        <li><a class="dropdown-item text-danger" asp-area="Admins" asp-controller="Products" asp-action="Delete" asp-route-id="@product.Id">حذف محصول</a></li>
+                                    </ul>
+                                </div>
+                            </td>
+                        </tr>
+                        index++;
+                    }
+                }
+                else
+                {
+                    <tr>
+                        <td class="fw-bold text-primary text-center" colspan="5">هیچ محصولی اضافه نشده است.</td>
+                    </tr>
+                }
+            }
+        </tbody>
+    </table>
+</div>

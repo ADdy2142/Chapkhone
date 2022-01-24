@@ -1,0 +1,61 @@
+﻿@using Chapkhone.Utilities.Extensions
+@model ICollection<Order>
+
+<div class="container my-5 pt-2">
+    <h5 class="fw-bold my-4">مدیریت سفارشات</h5>
+    <div class="row mb-4">
+        <div class="col-9 d-flex align-items-center">
+            <span class="d-block text-start fw-bold">لیست سفارشات</span>
+        </div>
+        <div class="col-12 mt-3">
+            <form asp-area="Admins" asp-controller="Orders" asp-action="Index" method="get" id="search-products-form">
+                <div class="search-products-form-content d-flex justify-content-between align-items-center">
+                    <input type="text" name="userName" autocomplete="off" class="form-control d-inline-block mx-2 form-control-sm" />
+                    <input type="submit" value="جستجو" class="btn btn-outline-primary d-inline-block btn-sm" />
+                </div>
+            </form>
+        </div>
+    </div>
+    <table class="table table-hover table-striped table-responsive-md align-middle">
+        <thead>
+            <tr>
+                <th scope="col">#</th>
+                <th scope="col">نام مشتری</th>
+                <th scope="col">شماره تلفن کاربر</th>
+                <th scope="col">تاریخ سفارش</th>
+                <th scope="col">تعداد اقلام سفارش</th>
+                <th scope="col">مبلغ پرداختی</th>
+                <th scope="col">وضعیت مشاهده</th>
+                <th scope="col">جزئیات</th>
+            </tr>
+        </thead>
+        <tbody>
+            @{
+                if (Model.Count > 0)
+                {
+                    int index = 1;
+                    foreach (var order in Model)
+                    {
+                        <tr>
+                            <th scope="row">@index</th>
+                            <td>@order.Customer.FullName</td>
+                            <td>@order.Customer.PhoneNumber</td>
+                            <td>@(order.OrderDate?.ToShortPersianDate() ?? "-")</td>
+                            <td>@(order.SpecificationOrders?.Count ?? 0)</td>
+                            <td>@order.FinalPrice.ToString("N0") تومان</td>
+                            <td class="@(order.IsVisitedByAdmin ? "text-success" : "text-danger")">@(order.IsVisitedByAdmin ? "قبلا مشاهده شده" : "تا کنون مشاهده نشده")</td>
+                            <td><a asp-area="Admins" asp-controller="Orders" asp-action="OrderDetails" asp-route-orderId="@order.Id" class="btn btn-outline-warning btn-sm">مشاهده</a></td>
+                        </tr>
+                        index++;
+                    }
+                }
+                else
+                {
+                    <tr>
+                        <td class="fw-bold text-primary text-center" colspan="8">هیچ سفارشی یافت نشد.</td>
+                    </tr>
+                }
+            }
+        </tbody>
+    </table>
+</div>

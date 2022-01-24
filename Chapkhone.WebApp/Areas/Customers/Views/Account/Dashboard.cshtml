@@ -1,0 +1,30 @@
+﻿@model CustomerDetailsVM
+
+@section Styles {
+    <link rel="stylesheet" href="~/css/profile-dashboard.css" />
+}
+
+<div class="flex-grow-1">
+    <h3 class="section-header my-0">اطلاعات شخصی</h3>
+    <form asp-area="Customers" asp-controller="Account" asp-action="ChangeCustomerImage" asp-antiforgery="true" method="post" enctype="multipart/form-data" id="change-image-form">
+        <label for="customerImage">
+            <div class="user-current-image" style="background-image: url('@Model.ImageUrl');"></div>
+        </label>
+        <input type="file" name="customerImage" id="customerImage" accept="image/*" class="d-none change-image-input">
+    </form>
+    <div class="row">
+        <div class="col-12 col-md-6 user-info-wrap">
+            <span class="user-info-text">نام و نام خانوادگی</span>
+            <span class="user-info-value">@Model.FullName</span>
+        </div>
+        <div class="col-12 col-md-6 user-info-wrap">
+            <span class="user-info-text">شماره تلفن همراه</span>
+            <span class="user-info-value">@Model.PhoneNumber</span>
+        </div>
+        <div class="col-12 col-md-6 user-info-wrap">
+            <span class="user-info-text">پست الکترونیکی</span>
+            <span class="user-info-value">@(Model.Email ?? "-")</span>
+        </div>
+    </div>
+    <a asp-area="Customers" asp-controller="Account" asp-action="EditPersonalInfo" class="button mt-4">ویرایش اطلاعات شخصی</a>
+</div>

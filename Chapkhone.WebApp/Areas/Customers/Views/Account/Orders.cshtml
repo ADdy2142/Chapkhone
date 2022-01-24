@@ -1,0 +1,47 @@
+﻿@using Chapkhone.Utilities.Extensions
+@model ICollection<Order>
+
+@section Styles {
+<link rel="stylesheet" href="~/css/profile-dashboard.css">
+<link rel="stylesheet" href="~/css/profile-my-orders.css">
+}
+
+<div class="flex-grow-1">
+    <h3 class="section-header mt-0 mb-5">سفارش های من</h3>
+    <table class="table-borderless custom-table">
+        <thead>
+            <tr>
+                <th class="my-flex-width-1">#</th>
+                <th class="my-flex-width-4 my-flex-sm-width-3">تاریخ ثبت سفارش</th>
+                <th class="my-flex-width-2">مبلغ کل</th>
+                <th class="my-flex-width-2">عملیات پرداخت</th>
+                <th class="my-flex-width-1 my-flex-sm-width-2">جزئیات سفارش</th>
+            </tr>
+        </thead>
+        <tbody>
+            @if (Model.Any())
+            {
+                int index = 1;
+                @foreach (var order in Model)
+                {
+                    <tr>
+                        <td class="my-flex-width-1">@index</td>
+                        <td class="my-flex-width-4 my-flex-sm-width-3">@(order.OrderDate?.ToShortPersianDate() ?? "-")</td>
+                        <td class="my-flex-width-2">@order.FinalPrice.ToString("N0") تومان</td>
+                        <td class="my-flex-width-2 @(order.TransactionStatus ? "text-success" : "text-danger")">@(order.TransactionStatus ? "پرداخت موفق" : "پرداخت ناموفق")</td>
+                        <td class="my-flex-width-1 my-flex-sm-width-2">
+                            <a asp-area="Customers" asp-controller="Account" asp-action="OrderDetails" asp-route-orderId="@order.Id" class="shopping-cart-show-details-link">مشاهده</a>
+                        </td>
+                    </tr>
+                    index++;
+                }
+            }
+            else
+            {
+                <tr>
+                    <td class="w-100 text-center text-info fw-bold" colspan="5">هیچ سفارشی وجود ندارد.</td>
+                </tr>
+            }
+        </tbody>
+    </table>
+</div>

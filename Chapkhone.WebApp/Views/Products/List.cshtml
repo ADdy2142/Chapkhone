@@ -1,0 +1,192 @@
+﻿@using Chapkhone.Utilities.Pagination
+@model PaginatedList<Product>
+
+@section Styles {
+<link rel="stylesheet" href="~/css/products.css" />
+}
+
+<!-- Start Sort Section -->
+<section id="sort-section">
+    <div class="container">
+        <div class="sort-content direction-rtl">
+            <span class="sort-title">مرتب سازی بر اساس:</span>
+            <ul class="sort-list-items">
+                <li class="sort-list-item"><a href="#" class="button @(ViewBag.OrderBy == 0 ? "active" : "")">جدیدترین</a></li>
+                <li class="sort-list-item"><a href="#" class="button @(ViewBag.OrderBy == 1 ? "active" : "")">قدیمی ترین</a></li>
+                <li class="sort-list-item"><a href="#" class="button @(ViewBag.OrderBy == 2 ? "active" : "")">گرانترین</a></li>
+                <li class="sort-list-item"><a href="#" class="button @(ViewBag.OrderBy == 3 ? "active" : "")">ارزانترین</a></li>
+            </ul>
+        </div>
+    </div>
+</section>
+<!-- End Sort Section -->
+<!-- Start Products -->
+<section id="products">
+    <div class="container">
+        <div id="products-container" class="direction-rtl">
+            @if (Model.Count > 0)
+            {
+                @foreach (var product in Model)
+                {
+                    <div class="product-card">
+                        <div class="product-card-wrap">
+                            <div class="product-image-wrap">
+                                <img src="@(product.ProductImages?.FirstOrDefault(pi => !pi.ShowInSlider)?.ImageUrl ?? string.Empty)" alt="@product.Title">
+                            </div>
+                            <div class="card-content">
+                                <a asp-controller="Products" asp-action="Details" asp-route-designGroupTitle="@product.DesignGroup.Title" asp-route-title="@product.Title" asp-route-id="@product.Id" class="product-title">@product.Title</a>
+                                @if (product.Discount > 0)
+                                {
+                                    <div class="product-discount">
+                                        <span class="product-price">@product.Price.ToString("N0") تومان</span>
+                                        <span class="product-discount-value">%@product.Discount</span>
+                                    </div>
+                                }
+                                <span class="product-final-price">@product.FinalPrice.ToString("N0") تومان</span>
+                            </div>
+                        </div>
+                        <div class="product-card-action-button">
+                            <a asp-controller="Products" asp-action="Details" asp-route-designGroupTitle="@product.DesignGroup.Title.Replace(" ", "-")" asp-route-title="@product.Title.Replace(" ", "-")" asp-route-id="@product.Id" class="button d-block">مشاهده</a>
+                        </div>
+                    </div>
+                }
+            }
+        </div>
+    </div>
+</section>
+<!-- End Products -->
+<!-- Start Pagination -->
+<section id="pagination">
+    <div class="container">
+        <ul class="pagination-list">
+            @if (Model.HasAroundPages)
+            {
+                @if (Model.AroundPages[0] > 1)
+                {
+                    <li class="pagination-list-item">
+                        <a href="#" class="pagination-list-link">
+                            <span class="pagination-list-text">1</span>
+                        </a>
+                    </li>
+                }
+                @if (Model.AroundPages[0] > 2)
+                {
+                    <li class="pagination-list-item">
+                        <span class="pagination-list-text">...</span>
+                    </li>
+                }
+                @foreach (int pageIndex in Model.AroundPages)
+                {
+                    <li class="pagination-list-item">
+                        <a href="#" class="pagination-list-link @(pageIndex == ViewBag.PageIndex ? "active" : "")">
+                            <span class="pagination-list-text">@pageIndex</span>
+                        </a>
+                    </li>
+                }
+                @if (Model.AroundPages[4] < Model.TotalPages - 1)
+                {
+                    <li class="pagination-list-item">
+                        <span class="pagination-list-text">...</span>
+                    </li>
+                }
+                @if (Model.AroundPages[4] < Model.TotalPages)
+                {
+                    <li class="pagination-list-item">
+                        <a href="#" class="pagination-list-link">
+                            <span class="pagination-list-text">@Model.TotalPages</span>
+                        </a>
+                    </li>
+                }
+            }
+            else
+            {
+                for (int i = 0; i < Model.TotalPages; i++)
+                {
+                    <li class="pagination-list-item">
+                        <a href="#" class="pagination-list-link active">
+                            <span class="pagination-list-text">@(i + 1)</span>
+                        </a>
+                    </li>
+                }
+            }
+        </ul>
+    </div>
+</section>
+<!-- End Pagination -->
+@section Scripts {
+<script>
+    $(document).ready(function() {
+        var preOrderItem = $(".sort-content .sort-list-items .sort-list-item .button.active")[0];
+        var orderBy = @ViewBag.OrderBy;
+
+        // Get Products by Sorting
+        $(".sort-list-item .button").click(function (e) {
+            e.preventDefault();
+
+            debugger;
+            var currentSortItem = $(this);
+            if ($(preOrderItem).html() === $(currentSortItem).html()) {
+                return;
+            } else {
+                $(preOrderItem).removeClass("active");
+                preOrderItem = currentSortItem;
+                $(preOrderItem).addClass("active");
+            }
+
+            switch ($(this).html()) {
+                case "جدیدترین":
+                    orderBy = 0;
+                    break;
+
+                case "قدیمی ترین":
+                    orderBy = 1;
+                    break;
+
+                case "گرانترین":
+                    orderBy = 2;
+                    break;
+
+                case "ارزانترین":
+                    orderBy = 3;
+                    break;
+
+                default:
+                    break;
+            }
+
+            getProducts();
+        });
+
+        var activePage = $("#pagination .pagination-list .pagination-list-item .pagination-list-link.active")[0];
+        var page = @ViewBag.PageIndex;
+
+        $("#pagination .pagination-list .pagination-list-item .pagination-list-link").click(function (e) {
+            e.preventDefault();
+
+            debugger;
+            let currentPage = $(this)[0];
+            if (currentPage === activePage) {
+                return;
+            }
+
+            $(activePage).removeClass("active");
+            activePage = currentPage;
+            $(activePage).addClass("active");
+
+            page = $(this).children(".pagination-list-text").html();
+
+            let url = "@(ViewBag.SiteUrl)products/list/@(ViewBag.DesignGroupId)" + "?orderBy=" + orderBy + "&pageIndex=" + page;
+            window.location.href = url;
+        });
+
+        function getProducts() {
+            debugger;
+            var productsContainer = $("#products-container")[0];
+            let url = "@(ViewBag.SiteUrl)/products/getproducts/@(ViewBag.DesignGroupId)" + "?orderBy=" + orderBy + "&pageIndex=" + page;
+            $.get(url, function (data) {
+                $(productsContainer).html(data);
+            });
+        }
+    });
+</script>
+}

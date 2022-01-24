@@ -13,7 +13,9 @@ namespace Chapkhone.DataAccess.Profiles
     {
         public ProductsProfile()
         {
-            CreateMap<Product, GetProductViewModel>().ForMember(dest => dest.DesignGroupTitle, opt => opt.MapFrom(src => src.DesignGroup.Title));
+            CreateMap<Product, GetProductVM>().ForMember(dest => dest.DesignGroupTitle, opt => opt.MapFrom(src => src.DesignGroup.Title));
+            CreateMap<Product, UpsertProductVM>();
+            CreateMap<UpsertProductVM, Product>();
         }
     }
 }

@@ -1,0 +1,26 @@
+﻿@model ICollection<DesignGroup>
+
+@section Styles {
+<link rel="stylesheet" href="~/css/order-type.css">
+}
+
+<!-- Start Order Types -->
+<section id="order-types">
+    <div class="container">
+        <ul class="order-type-items direction-rtl">
+            @if (Model.Count > 0)
+            {
+                foreach (var designGroup in Model)
+                {
+                    <li class="order-type-item">
+                        <h4 class="order-type-header">سفارش @designGroup.Title</h4>
+                        <span class="order-type-short-description">@designGroup.ShortDescription</span>
+                        <div class="order-type-image" style="background-image: url('@designGroup.ImageUrl');"></div>
+                        <a asp-controller="Home" asp-action="OrderDetails" asp-route-designGroupId="@designGroup.Id" class="order-type-link"></a>
+                    </li>
+                }
+            }
+        </ul>
+    </div>
+</section>
+<!-- End Order Types -->

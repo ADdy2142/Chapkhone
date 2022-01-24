@@ -29,7 +29,7 @@ namespace Chapkhone.DataAccess.Services.Repository
             return await _dbSet.FindAsync(id);
         }
 
-        public async Task<TEntity> GetFirstOrDefalutAsync(Expression<Func<TEntity, bool>> filter = null, params string[] includeProperties)
+        public async Task<TEntity> GetFirstOrDefaultAsync(Expression<Func<TEntity, bool>> filter = null, params string[] includeProperties)
         {
             var entities = await GetAllAsync(filter: filter, includeProperties: includeProperties);
 
