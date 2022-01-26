@@ -4,14 +4,16 @@ using Chapkhone.DataAccess.Context;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 namespace Chapkhone.DataAccess.Migrations
 {
     [DbContext(typeof(ChapkhoneContext))]
-    partial class ChapkhoneContextModelSnapshot : ModelSnapshot
+    [Migration("20220124165439_ChangeSpecificationOrderModel")]
+    partial class ChangeSpecificationOrderModel
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder

@@ -26,7 +26,7 @@ namespace Chapkhone.DataAccess.Services.Repository
                 designGroupInDb.Title = designGroup.Title;
                 designGroupInDb.ShortDescription = designGroup.ShortDescription;
                 designGroupInDb.ImageName = designGroup.ImageName;
-                designGroupInDb.DesignPrice = designGroup.DesignPrice;
+                designGroupInDb.UnitPrice = designGroup.UnitPrice;
                 designGroupInDb.Discount = designGroup.Discount;
             }
         }

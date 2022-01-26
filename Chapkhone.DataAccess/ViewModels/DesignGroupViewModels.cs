@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Http;
+﻿using Chapkhone.DataAccess.Models;
+using Microsoft.AspNetCore.Http;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
@@ -28,7 +29,10 @@ namespace Chapkhone.DataAccess.ViewModels
         public string ShortDescription { get; set; }
 
         [Required(ErrorMessage = "هزینه طراحی نباید خالی باشد.")]
-        public double DesignPrice { get; set; }
+        public double UnitPrice { get; set; }
+
+        [Required(ErrorMessage = "نحوه محاسبه قیمت را انتخاب کنید.")]
+        public UnitPriceType UnitPriceType { get; set; }
 
         [Required(ErrorMessage = "تخفیف نباید خالی باشد.")]
         public double Discount { get; set; }

@@ -17,6 +17,26 @@
     </section>
     <!-- End Site Notification -->
 }
+<!-- Start Social Media -->
+<section id="social-media" class="direction-rtl">
+    <div class="container">
+        <div class="social-media-card-wrap">
+            <div class="social-media-card-item instagram-social-card">
+                <h4 class="card-title">چاپخانه بخشی در اینستاگرام</h4>
+                <a href="https://instagram.com/tablighat_bakhshi" class="card-link"></a>
+            </div>
+            <div class="social-media-card-item telegram-social-card">
+                <h4 class="card-title">چاپخانه بخشی در تلگرام</h4>
+                <a href="https://t.me/bakhshi09152690800" class="card-link"></a>
+            </div>
+            <div class="social-media-card-item whatsapp-social-card">
+                <h4 class="card-title">سفارش از طریق واتساپ</h4>
+                <a href="https://wa.me/989152690800" class="card-link"></a>
+            </div>
+        </div>
+    </div>
+</section>
+<!-- End Social Media -->
 @if (Model.SlideShowProducts.Count > 0)
 {
     <!-- Start Main Slide Show -->
@@ -91,7 +111,7 @@
                 @foreach (var customerComment in Model.CustomerComments)
                 {
                     <div class="customer-comment-card">
-                        <div class="customer-image" style="background-image: url('/images/Profile.jpg');"></div>
+                        <div class="customer-image" style="background-image: url('@customerComment.Customer.ImageUrl');"></div>
                         <span class="customer-name">@customerComment.Customer.FullName</span>
                         <div class="customer-comment-wrap">
                             <svg width="512px" height="512px" viewBox="0 0 512 512" xmlns="http://www.w3.org/2000/svg">

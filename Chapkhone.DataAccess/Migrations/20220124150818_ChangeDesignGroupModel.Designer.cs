@@ -4,14 +4,16 @@ using Chapkhone.DataAccess.Context;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 namespace Chapkhone.DataAccess.Migrations
 {
     [DbContext(typeof(ChapkhoneContext))]
-    partial class ChapkhoneContextModelSnapshot : ModelSnapshot
+    [Migration("20220124150818_ChangeDesignGroupModel")]
+    partial class ChangeDesignGroupModel
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -294,9 +296,6 @@ namespace Chapkhone.DataAccess.Migrations
                     b.Property<int>("DesignGroupId")
                         .HasColumnType("int");
 
-                    b.Property<int>("Height")
-                        .HasColumnType("int");
-
                     b.Property<int>("OrderId")
                         .HasColumnType("int");
 
@@ -313,12 +312,6 @@ namespace Chapkhone.DataAccess.Migrations
                         .HasColumnType("int");
 
                     b.Property<int>("TotalPrice")
-                        .HasColumnType("int");
-
-                    b.Property<int>("Weight")
-                        .HasColumnType("int");
-
-                    b.Property<int>("Width")
                         .HasColumnType("int");
 
                     b.HasKey("Id");

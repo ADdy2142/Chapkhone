@@ -150,7 +150,8 @@ namespace Chapkhone.WebApp.Controllers
             {
                 ProductId = product.Id,
                 DesignGroupId = product.DesignGroup.Id,
-                Qty = 1,
+                UnitPrice = product.FinalPrice,
+                UnitPriceType = product.DesignGroup.UnitPriceType,
                 DesignGroupImageUrl = product.DesignGroup.ImageUrl,
                 SpecificationOrderGroups = _mapper.Map<ICollection<SpecificationOrderGroupVM>>(product.DesignGroup.SpecificationOrderGroups)
             };

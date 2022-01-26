@@ -8,7 +8,7 @@ namespace Chapkhone.DataAccess.Constants
 {
     public static class Urls
     {
-        //public static string SiteUrl = "https://localhost:44320";
-        public static string SiteUrl = "https://www.chapbakhshi.ir";
+        public static string SiteUrl = "https://localhost:44320";
+        //public static string SiteUrl = "https://www.chapbakhshi.ir";
     }
 }

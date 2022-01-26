@@ -14,6 +14,9 @@ namespace Chapkhone.DataAccess.Models
         public int Id { get; set; }
 
         public string Title { get; set; }
+        public int Width { get; set; }
+        public int Height { get; set; }
+        public int Weight { get; set; }
         public int Qty { get; set; }
         public string Description { get; set; }
         public int TotalPrice { get; set; }

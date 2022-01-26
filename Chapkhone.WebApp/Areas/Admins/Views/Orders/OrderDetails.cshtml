@@ -66,22 +66,13 @@
                 </div>
             </div>
         </div>
-        <div class="col-12">
-            <div class="row bg-light rounded shadow-sm p-2 mb-3">
-                <div class="col-2">
-                    <span class="d-block text-secondary">گروه طراحی:</span>
-                </div>
-                <div class="col-10">
-                    <span class="d-block text-dark">@(Model.SpecificationOrders?.FirstOrDefault()?.SpecificationOrderValues?.FirstOrDefault()?.SpecificationOrderTitle?.SpecificationOrderGroup?.DesignGroup?.Title ?? "-")</span>
-                </div>
-            </div>
-        </div>
         @if (Model.SpecificationOrders.Count > 0)
         {
             int index = 1;
             foreach (var specificationOrder in Model.SpecificationOrders)
             {
                 var product = await UnitOfWork.Products.GetFirstOrDefaultAsync(p => p.Id == specificationOrder.ProductId, includeProperties: new string[] { "ProductImages" });
+                var designGroup = await UnitOfWork.DesignGroups.FindAsync(specificationOrder.DesignGroupId);
                 <h4 class="text-primary fw-bold">سفارش @index</h4>
                 <div class="col-12">
                     <div class="row bg-light rounded shadow-sm px-2 py-3 mb-3">
@@ -102,6 +93,36 @@
                                     <span class="d-block text-dark">@specificationOrder.Qty</span>
                                 </div>
                             </div>
+                            @if (designGroup.UnitPriceType == UnitPriceType.m2)
+                            {
+                                <div class="row p-2 mb-3">
+                                    <div class="col-2">
+                                        <span class="d-block text-secondary">طول:</span>
+                                    </div>
+                                    <div class="col-10">
+                                        <span class="d-block text-dark">@((double)specificationOrder.Width / 1000) متر</span>
+                                    </div>
+                                </div>
+                                <div class="row p-2 mb-3">
+                                    <div class="col-2">
+                                        <span class="d-block text-secondary">ارتفاع:</span>
+                                    </div>
+                                    <div class="col-10">
+                                        <span class="d-block text-dark">@((double)specificationOrder.Height / 1000) متر</span>
+                                    </div>
+                                </div>
+                            }
+                            @if (designGroup.UnitPriceType == UnitPriceType.kg)
+                            {
+                                <div class="row p-2 mb-3">
+                                    <div class="col-2">
+                                        <span class="d-block text-secondary">وزن:</span>
+                                    </div>
+                                    <div class="col-10">
+                                        <span class="d-block text-dark">@((double)specificationOrder.Weight / 1000) کیلوگرم</span>
+                                    </div>
+                                </div>
+                            }
                             <div class="row p-2 mb-3">
                                 <div class="col-2">
                                     <span class="d-block text-secondary">توضیحات:</span>

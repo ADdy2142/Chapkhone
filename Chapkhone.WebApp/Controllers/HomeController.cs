@@ -54,7 +54,7 @@ namespace Chapkhone.WebApp.Controllers
 
         [HttpGet]
         [Authorize]
-        public async Task<IActionResult> ExclusiveOrder()
+        public async Task<IActionResult> DesignOrder()
         {
             var groups = await _unitOfWork.DesignGroups.GetAllAsync();
             ViewBag.Title = "سفارش اختصاصی";
@@ -68,7 +68,7 @@ namespace Chapkhone.WebApp.Controllers
                 new BreadCrumb
                 {
                     Title = "سفارش اختصاصی",
-                    Url = Url.Action("ExclusiveOrder", "Home")
+                    Url = Url.Action("DesignOrder", "Home")
                 }
             };
 
@@ -78,7 +78,7 @@ namespace Chapkhone.WebApp.Controllers
         [HttpGet]
         [Route("[controller]/[action]/{designGroupId}")]
         [Authorize]
-        public async Task<IActionResult> OrderDetails(int? designGroupId)
+        public async Task<IActionResult> OrderDetails(int? designGroupId, string error = null)
         {
             if (designGroupId == null)
                 return BadRequest();
@@ -88,6 +88,7 @@ namespace Chapkhone.WebApp.Controllers
                 return NotFound();
 
             ViewBag.Title = $"سفارش {designGroup.Title}";
+            ViewBag.Error = error;
             ViewBag.BreadCrumbs = new List<BreadCrumb>
             {
                 new BreadCrumb
@@ -98,7 +99,7 @@ namespace Chapkhone.WebApp.Controllers
                 new BreadCrumb
                 {
                     Title = "سفارش اختصاصی",
-                    Url = Url.Action("ExclusiveOrder", "Home")
+                    Url = Url.Action("DesignOrder", "Home")
                 },
                 new BreadCrumb
                 {
@@ -110,7 +111,8 @@ namespace Chapkhone.WebApp.Controllers
             var viewModel = new GetOrderDetailsVM
             {
                 DesignGroupId = designGroup.Id,
-                Qty = 1,
+                UnitPrice = designGroup.FinalPrice,
+                UnitPriceType = designGroup.UnitPriceType,
                 DesignGroupImageUrl = designGroup.ImageUrl,
                 SpecificationOrderGroups = _mapper.Map<ICollection<SpecificationOrderGroupVM>>(designGroup.SpecificationOrderGroups)
             };
@@ -123,6 +125,41 @@ namespace Chapkhone.WebApp.Controllers
         [Authorize]
         public async Task<IActionResult> AddToCart(GetOrderDetailsVM viewModel)
         {
+            var designGroup = await _unitOfWork.DesignGroups.FindAsync(viewModel.DesignGroupId);
+            if (designGroup == null)
+                return NotFound();
+
+            string errorMessage = string.Empty;
+            switch (designGroup.UnitPriceType)
+            {
+                case UnitPriceType.m2:
+                    if (viewModel.OrderDetailsUnitPrice.Width <= 0 || viewModel.OrderDetailsUnitPrice.Height <= 0)
+                    {
+                        errorMessage = "طول یا ارتفاع وارد شده قابل قبول نیست.";
+                        ModelState.AddModelError("InvalidWidthOrHeight", errorMessage);
+                    }
+                    break;
+
+                case UnitPriceType.kg:
+                    if (viewModel.OrderDetailsUnitPrice.Weight <= 0)
+                    {
+                        errorMessage = "وزن وارد شده قابل قبول نیست.";
+                        ModelState.AddModelError("InvalidWeight", errorMessage);
+                    }
+                    break;
+
+                case UnitPriceType.qty:
+                    if (viewModel.OrderDetailsUnitPrice.Qty <= 0)
+                    {
+                        errorMessage = "تعداد وارد شده قابل قبول نیست.";
+                        ModelState.AddModelError("InvalidWeight", errorMessage);
+                    }
+                    break;
+
+                default:
+                    break;
+            }
+
             if (ModelState.IsValid)
             {
                 var customer = await _userManager.FindByNameAsync(CustomerUserName);
@@ -137,34 +174,64 @@ namespace Chapkhone.WebApp.Controllers
                     await _unitOfWork.SaveAsync();
                 }
 
-                int totalDiscount = 0;
-                int totalPrice = 0;
-
                 var product = await _unitOfWork.Products.FindAsync(viewModel.ProductId);
-                if (product != null)
-                {
-                    totalDiscount = (product.Price - product.FinalPrice) * viewModel.Qty;
-                    totalPrice = product.Price * viewModel.Qty;
-                }
-                else
-                {
-                    var designGroup = await _unitOfWork.DesignGroups.FindAsync(viewModel.DesignGroupId);
-                    if (designGroup == null)
-                        return BadRequest();
+                double totalDiscount = 0;
+                double totalPrice = 0;
 
-                    totalDiscount = (designGroup.DesignPrice - designGroup.FinalPrice) * viewModel.Qty;
-                    totalPrice = designGroup.DesignPrice * viewModel.Qty;
+                switch (designGroup.UnitPriceType)
+                {
+                    case UnitPriceType.m2:
+                        var width = viewModel.OrderDetailsUnitPrice.Width;
+                        var height = viewModel.OrderDetailsUnitPrice.Height;
+                        var m2 = (double)width / 100 * (double)height / 100;
+                        totalDiscount = (designGroup.UnitPrice - designGroup.FinalPrice) * m2;
+                        totalPrice = designGroup.UnitPrice * m2;
+                        break;
+
+                    case UnitPriceType.kg:
+                        var weight = viewModel.OrderDetailsUnitPrice.Weight / 1000;
+                        if (product != null)
+                        {
+                            totalDiscount = (product.Price - product.FinalPrice) * weight;
+                            totalPrice = product.Price * weight;
+                        }
+                        else
+                        {
+                            totalDiscount = (designGroup.UnitPrice - designGroup.FinalPrice) * weight;
+                            totalPrice = designGroup.UnitPrice * weight;
+                        }
+                        break;
+
+                    case UnitPriceType.qty:
+                        var qty = viewModel.OrderDetailsUnitPrice.Qty;
+                        if (product != null)
+                        {
+                            totalDiscount = (product.Price - product.FinalPrice) * qty;
+                            totalPrice = product.Price * qty;
+                        }
+                        else
+                        {
+                            totalDiscount = (designGroup.UnitPrice - designGroup.FinalPrice) * qty;
+                            totalPrice = designGroup.UnitPrice * qty;
+                        }
+                        break;
+
+                    default:
+                        break;
                 }
 
                 var specificationOrder = new SpecificationOrder();
                 specificationOrder.Title = viewModel.Title;
-                specificationOrder.Qty = viewModel.Qty;
+                specificationOrder.Width = viewModel.OrderDetailsUnitPrice.Width;
+                specificationOrder.Height = viewModel.OrderDetailsUnitPrice.Height;
+                specificationOrder.Weight = viewModel.OrderDetailsUnitPrice.Weight;
+                specificationOrder.Qty = viewModel.OrderDetailsUnitPrice.Qty == 0 ? 1 : viewModel.OrderDetailsUnitPrice.Qty;
                 specificationOrder.Description = viewModel.Description;
                 specificationOrder.OrderId = order.Id;
                 specificationOrder.ProductId = product?.Id ?? 0;
                 specificationOrder.DesignGroupId = product?.DesignGroupId ?? viewModel.DesignGroupId;
-                specificationOrder.TotalPrice = totalPrice;
-                specificationOrder.TotalDiscount = totalDiscount;
+                specificationOrder.TotalPrice = (int)totalPrice;
+                specificationOrder.TotalDiscount = (int)totalDiscount;
 
                 await _unitOfWork.SpecificationOrders.AddAsync(specificationOrder);
                 await _unitOfWork.SaveAsync();
@@ -210,9 +277,11 @@ namespace Chapkhone.WebApp.Controllers
 
                 await _unitOfWork.Orders.UpdateAsync(order);
                 await _unitOfWork.SaveAsync();
+
+                return RedirectToAction("ShoppingCart", "Account", new { Area = "Customers" });
             }
 
-            return RedirectToAction("ShoppingCart", "Account", new { Area = "Customers" });
+            return RedirectToAction(nameof(OrderDetails), new { designGroupId = designGroup.Id, error = errorMessage });
         }
 
         [HttpGet]

@@ -48,9 +48,27 @@
                                         <span class="user-info-text">تعداد</span>
                                         <span class="user-info-value">@specificationOrder.Qty</span>
                                     </div>
+                                    @if (designGroup.UnitPriceType == UnitPriceType.m2)
+                                    {
+                                        <div class="col-2 user-info-wrap mb-0">
+                                            <span class="user-info-text">طول</span>
+                                            <span class="user-info-value">@specificationOrder.Width cm</span>
+                                        </div>
+                                        <div class="col-2 user-info-wrap mb-0">
+                                            <span class="user-info-text">ارتفاع</span>
+                                            <span class="user-info-value">@specificationOrder.Height cm</span>
+                                        </div>
+                                    }
+                                    @if (designGroup.UnitPriceType == UnitPriceType.kg)
+                                    {
+                                        <div class="col-2 user-info-wrap mb-0">
+                                            <span class="user-info-text">وزن</span>
+                                            <span class="user-info-value">@specificationOrder.Weight g</span>
+                                        </div>
+                                    }
                                     <div class="col-2 user-info-wrap mb-0">
                                         <span class="user-info-text">قیمت واحد</span>
-                                        <span class="user-info-value">@(product?.Price.ToString("N0") ?? designGroup.DesignPrice.ToString("N0")) تومان</span>
+                                        <span class="user-info-value">@(product?.Price.ToString("N0") ?? designGroup.UnitPrice.ToString("N0")) تومان</span>
                                     </div>
                                     <div class="col-2 user-info-wrap mb-0">
                                         <span class="user-info-text">تخفیف</span>
@@ -70,11 +88,35 @@
                                     <div class="col-8">
                                         <span class="user-info-value">@specificationOrder.Qty</span>
                                     </div>
+                                    @if (designGroup.UnitPriceType == UnitPriceType.m2)
+                                    {
+                                        <div class="col-4 user-info-wrap mb-0">
+                                            <span class="user-info-text">طول</span>
+                                        </div>
+                                        <div class="col-8">
+                                            <span class="user-info-value">@specificationOrder.Width cm</span>
+                                        </div>
+                                        <div class="col-4 user-info-wrap mb-0">
+                                            <span class="user-info-text">ارتفاع</span>
+                                        </div>
+                                        <div class="col-8">
+                                            <span class="user-info-value">@specificationOrder.Height cm</span>
+                                        </div>
+                                    }
+                                    @if (designGroup.UnitPriceType == UnitPriceType.kg)
+                                    {
+                                        <div class="col-4 user-info-wrap mb-0">
+                                            <span class="user-info-text">وزن</span>
+                                        </div>
+                                        <div class="col-8">
+                                            <span class="user-info-value">@specificationOrder.Weight g</span>
+                                        </div>
+                                    }
                                     <div class="col-4 user-info-wrap mb-0">
                                         <span class="user-info-text">قیمت واحد</span>
                                     </div>
                                     <div class="col-8">
-                                        <span class="user-info-value">@(product?.Price.ToString("N0") ?? designGroup.DesignPrice.ToString("N0")) تومان</span>
+                                        <span class="user-info-value">@(product?.Price.ToString("N0") ?? designGroup.UnitPrice.ToString("N0")) تومان</span>
                                     </div>
                                     <div class="col-4 user-info-wrap mb-0">
                                         <span class="user-info-text">تخفیف</span>

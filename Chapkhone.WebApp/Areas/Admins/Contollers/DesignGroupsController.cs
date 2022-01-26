@@ -97,7 +97,7 @@ namespace Chapkhone.WebApp.Areas.Admins.Contollers
 
                 designGroupInDb.Title = designGroup.Title;
                 designGroupInDb.ShortDescription = designGroup.ShortDescription;
-                designGroupInDb.DesignPrice = designGroup.DesignPrice;
+                designGroupInDb.UnitPrice = designGroup.UnitPrice;
                 designGroupInDb.Discount = designGroup.Discount;
                 if (viewModel.DesignGroupImage != null)
                 {

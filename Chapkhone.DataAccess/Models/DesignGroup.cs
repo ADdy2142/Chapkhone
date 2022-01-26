@@ -17,13 +17,14 @@ namespace Chapkhone.DataAccess.Models
         public string Title { get; set; }
         public string ShortDescription { get; set; }
         public string ImageName { get; set; }
-        public int DesignPrice { get; set; }
+        public int UnitPrice { get; set; }
+        public UnitPriceType UnitPriceType { get; set; }
         public int Discount { get; set; }
 
         public ICollection<Product> Products { get; set; }
         public ICollection<SpecificationOrderGroup> SpecificationOrderGroups { get; set; }
 
         public string ImageUrl => Urls.SiteUrl + "/images/" + ImageName;
-        public int FinalPrice => DesignPrice - (DesignPrice * Discount / 100);
+        public int FinalPrice => UnitPrice - (UnitPrice * Discount / 100);
     }
 }

@@ -19,17 +19,45 @@
             <input type="hidden" asp-for="DesignGroupId" />
             <input type="hidden" asp-for="ProductId" />
             <h3 class="order-form-title">جزئیات طراحی</h3>
+            @if (!string.IsNullOrEmpty(ViewBag.Error))
+            {
+                <span class="d-block text-danger my-2">@ViewBag.Error</span>
+            }
             <div class="row">
                 <div class="col-12 col-md-6 custom-input-group">
                     <label asp-for="Title" class="d-block custom-input-label">عنوان</label>
                     <input asp-for="Title" type="text" class="custom-input">
                     <span class="text-danger mt-2 d-block" asp-validation-for="Title"></span>
                 </div>
-                <div class="col-12 col-md-6 custom-input-group">
-                    <label asp-for="Qty" class="d-block custom-input-label">تعداد</label>
-                    <input asp-for="Qty" type="number" min="1" class="custom-input">
-                    <span class="text-danger mt-2 d-block" asp-validation-for="Qty"></span>
-                </div>
+            </div>
+            <div class="row">
+                @{
+                    if (Model.UnitPriceType == UnitPriceType.m2)
+                    {
+                        <div class="col-12 col-md-6 custom-input-group">
+                            <label asp-for="OrderDetailsUnitPrice.Width" class="d-block custom-input-label">طول (سانتی متر)</label>
+                            <input asp-for="OrderDetailsUnitPrice.Width" type="number" class="custom-input unit-price-input" data-unit-price="@Model.UnitPrice" data-unit-price-type="@((int)Model.UnitPriceType)">
+                        </div>
+                        <div class="col-12 col-md-6 custom-input-group">
+                            <label asp-for="OrderDetailsUnitPrice.Height" class="d-block custom-input-label">ارتفاع (سانتی متر)</label>
+                            <input asp-for="OrderDetailsUnitPrice.Height" type="number" class="custom-input unit-price-input" data-unit-price="@Model.UnitPrice" data-unit-price-type="@((int)Model.UnitPriceType)">
+                        </div>
+                    }
+                    else if (Model.UnitPriceType == UnitPriceType.kg)
+                    {
+                        <div class="col-12 col-md-6 custom-input-group">
+                            <label asp-for="OrderDetailsUnitPrice.Weight" class="d-block custom-input-label">وزن (گرم)</label>
+                            <input asp-for="OrderDetailsUnitPrice.Weight" type="number" class="custom-input unit-price-input" data-unit-price="@Model.UnitPrice" data-unit-price-type="@((int)Model.UnitPriceType)">
+                        </div>
+                    }
+                    else if (Model.UnitPriceType == UnitPriceType.qty)
+                    {
+                        <div class="col-12 col-md-6 custom-input-group">
+                            <label asp-for="OrderDetailsUnitPrice.Qty" class="d-block custom-input-label">تعداد</label>
+                            <input asp-for="OrderDetailsUnitPrice.Qty" type="number" class="custom-input unit-price-input" data-unit-price="@Model.UnitPrice" data-unit-price-type="@((int)Model.UnitPriceType)">
+                        </div>
+                    }
+                }
             </div>
             @if (Model.SpecificationOrderGroups.Count > 0)
             {
@@ -74,9 +102,17 @@
                 <div class="col-12 mt-4 custom-input-group">
                     <div class="d-flex justify-content-start align-items-center flex-wrap gap-2 customer-design-image-container"></div>
                 </div>
-                <div class="d-flex justify-content-end">
-                    <input type="submit" value="افزودن به سبد خرید" class="button order-form-submit">
+                <div class="col-12">
+                    <div class="d-flex justify-content-end">
+                        <div>
+                            <span class="text-secondary d-block w-100 mb-2">مبلغ قابل پرداخت</span>
+                            <span id="total-design-price" class="fw-bold d-block w-100">0 تومان</span>
+                        </div>
+                    </div>
                 </div>
+            </div>
+            <div class="d-flex justify-content-end">
+                <input type="submit" value="افزودن به سبد خرید" class="button order-form-submit">
             </div>
         </form>
     </div>

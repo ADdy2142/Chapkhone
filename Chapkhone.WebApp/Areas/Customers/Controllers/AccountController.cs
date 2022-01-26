@@ -419,6 +419,25 @@ namespace Chapkhone.WebApp.Areas.Customers.Controllers
                 }
 
                 ViewBag.RefId = verification.RefId;
+                ViewBag.Title = "وضعیت تراکنش";
+                ViewBag.BreadCrumbs = new List<BreadCrumb>
+                {
+                    new BreadCrumb
+                    {
+                        Title = "چاپخانه بخشی",
+                        Url = Url.Action("Index", "Home", new { area = "" })
+                    },
+                    new BreadCrumb
+                    {
+                        Title = "پروفایل",
+                        Url = Url.Action("Dashboard", "Account", new { area = "Customers" })
+                    },
+                    new BreadCrumb
+                    {
+                        Title = "وضعیت تراکنش",
+                        Url = Url.Action("TransactionStatus", "Account", new { area = "Customers", orderId = order.Id, authority = authority, status = status })
+                    }
+                };
 
                 return View(order.TransactionStatus);
             }
