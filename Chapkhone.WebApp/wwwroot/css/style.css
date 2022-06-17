@@ -646,11 +646,16 @@ textarea.custom-input {
     padding: 0;
     margin: 0;
     display: flex;
+    -o-justify-content: flex-start;
+    -webkit-justify-content: flex-start;
     justify-content: flex-start;
+    -ms-align-items: center;
+    -o-align-items: center;
+    -webkit-align-items: center;
     align-items: center;
 }
 
-    .bread-crumb-items .bread-crumb-item {
+.bread-crumb-items .bread-crumb-item {
         display: inline-block;
     }
 
@@ -791,6 +796,12 @@ textarea.custom-input {
             }
 
             #footer .site-info p span {
+                color: var(--primary-color);
+            }
+
+            #footer .site-info p a {
+                text-decoration: none;
+                cursor: pointer;
                 color: var(--primary-color);
             }
 

@@ -78,7 +78,6 @@ namespace Chapkhone.WebApp
             });
             services.AddControllersWithViews();
             services.AddRazorPages();
-            services.AddRouting(options => options.LowercaseUrls = true);
             services.AddTransient<IUnitOfWork, UnitOfWork>();
             services.AddTransient<IMailService, MailService>();
             services.AddAutoMapper(AppDomain.CurrentDomain.GetAssemblies());

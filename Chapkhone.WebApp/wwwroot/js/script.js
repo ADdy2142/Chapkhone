@@ -87,9 +87,9 @@
 
     var productDetailsImagesSwiper = new Swiper(".product-details-images-swiper", {
         slidesPerView: 1,
-        spaceBetween: 10,
+        spaceBetween: 20,
         centeredSlides: true,
-        loop: true,
+        loop: false,
         autoplay: {
             delay: 3000,
             disableOnInteraction: false,

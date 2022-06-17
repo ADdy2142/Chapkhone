@@ -12,6 +12,7 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.IO;
+using System.Linq;
 using System.Threading.Tasks;
 
 namespace Chapkhone.WebApp.Areas.Admins.Contollers
@@ -125,9 +126,21 @@ namespace Chapkhone.WebApp.Areas.Admins.Contollers
             if (id == null)
                 return BadRequest();
 
-            var designGroup = await _unitOfWork.DesignGroups.FindAsync(id.Value);
+            var designGroup = await _unitOfWork.DesignGroups.GetFirstOrDefaultAsync(dg => dg.Id == id.Value, includeProperties: new[] { "Products.ProductImages" });
             if (designGroup == null)
                 return NotFound();
+
+            if (designGroup.Products.Any())
+            {
+                foreach (var product in designGroup.Products)
+                {
+                    if (!product.ProductImages.Any()) continue;
+                    foreach (var productImage in product.ProductImages)
+                    {
+                        DeleteImage(productImage.ImageName);
+                    }
+                }
+            }
 
             if (!string.IsNullOrEmpty(designGroup.ImageName))
                 DeleteImage(designGroup.ImageName);

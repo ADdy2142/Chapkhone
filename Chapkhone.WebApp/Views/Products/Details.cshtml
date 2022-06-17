@@ -23,7 +23,8 @@
                                     @if (!image.ShowInSlider)
                                     {
                                         <div class="swiper-slide">
-                                            <div class="product-details-image" style="background-image: url('@image.ImageUrl');">
+                                            <div class="product-details-image">
+                                                <img src="@image.ImageUrl" alt="@product.Title" />
                                             </div>
                                         </div>
                                     }
